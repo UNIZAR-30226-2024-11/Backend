@@ -1,4 +1,4 @@
-import { mainPageController } from "./mainPage";
-import { testController } from "./test";
+import { mainPageController } from "./mainPage"
+import { testController } from "./test"
 
-export { mainPageController, testController };
+export { mainPageController, testController }
