@@ -1,7 +1,21 @@
 version: '3.4'
 
+# La bd se almacena en /var de la maquina host
+volumes:
+  graham-uno-db:
+
+# Red de los contenedores
+networks:
+  graham-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+
 services:
-  backend:
+  server:
     image: graham-uno-backend
     build:
       context: .
@@ -19,8 +33,9 @@ services:
 
   db:
     image: postgres:latest
+    user: postgres
     environment:
-      POSTGRES_DB: graham-uno-dev
+      POSTGRES_DB: graham-uno-db
       POSTGRES_USER: graham
       POSTGRES_PASSWORD: password
     ports:
@@ -29,17 +44,11 @@ services:
       graham-network:
         ipv4_address: 10.5.0.3
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U graham-uno-dev"]
+      test: ["CMD-SHELL", "pg_isready -d graham-uno-db -U graham"]
       interval: 5s
       retries: 5
       start_period: 5s
       timeout: 5s
+    volumes:
+      - graham-uno-db:/var/lib/postgresql/data
 
-networks:
-  graham-network:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1
