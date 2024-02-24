@@ -1,10 +1,10 @@
-import { mainPageController, testController } from "../controller"
-import { Router } from "express"
+import { loginController, registerController } from "../controller"
+import Router from "express"
 
 const router = Router()
 
-router.route("/").get(mainPageController)
+router.route("/login").post(loginController)
 
-router.route("/test").get(testController)
+router.route("/register").post(registerController)
 
-export default router
+export { router }

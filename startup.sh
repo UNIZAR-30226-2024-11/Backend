@@ -27,7 +27,4 @@ if ! docker-compose build; then
     exit 1
 fi
 
-if ! docker-compose up -d; then
-    echo "Error al arrancar las imágenes de Docker"
-    exit 1
-fi
+docker-compose up
