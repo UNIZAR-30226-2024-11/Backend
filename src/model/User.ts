@@ -1,4 +1,4 @@
-import { db } from "../database"
+import { db } from "../config"
 
 // TODO: Una mejor forma de tratar erorres de DB usando pg.DatabaseError
 
