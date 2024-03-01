@@ -1,4 +1,5 @@
-import jwt from "jsonwebtoken"
+import { sign } from "jsonwebtoken"
+import bcrypt from "bcrypt"
 
 import { Request, Response } from "express"
 import { findUserByEmail } from "../model"
@@ -19,17 +20,26 @@ export const loginController = async (req: Request, res: Response) => {
     return
   }
 
-  const { email, password } = req.body as LoginRequest
-  const user = await findUserByEmail(email)
+  try {
+    const { email, password } = req.body as LoginRequest
+    const user = await findUserByEmail(email)
 
-  if (!user || user.email !== email) {
-    res.status(401).json({ error: "Usuario no encontrado" } as LoginResponse)
-    return
-  } else if (user.password !== password) {
-    res.status(401).json({ error: "Contraseña incorrecta" } as LoginResponse)
-    return
+    // Verifica que el usuario exista y que la contraseña sea correcta
+    if (!user || user.email !== email) {
+      res.status(401).json({ error: "Usuario no encontrado" } as LoginResponse)
+      return
+    }
+
+    if (!(user.password && (await bcrypt.compare(password, user.password)))) {
+      res.status(401).json({ error: "Contraseña incorrecta" } as LoginResponse)
+      return
+    }
+
+    // Firma un token usando la ID de usuario
+    const token = sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env")
+    res.status(200).json({ token } as LoginResponse)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Login: Error interno" })
   }
-
-  const token = jwt.sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env")
-  res.status(200).json({ token } as LoginResponse)
 }

@@ -32,8 +32,8 @@ export interface User {
  *
  * @param user Usuario a añadir
  */
-export const createUser = async (user: User) => {
-  return await db.query<User>(CREATE_QUERY, [user.username, user.email, user.password])
+export const createUser = async (username: string, email: string, password: string) => {
+  return await db.query<User>(CREATE_QUERY, [username, email, password])
 }
 
 /**
