@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken"
+
 import { Request, Response } from "express"
 import { findUserByEmail } from "../model"
 
@@ -8,6 +10,7 @@ interface LoginRequest {
 
 interface LoginResponse {
   error?: string
+  token?: string
 }
 
 export const loginController = async (req: Request, res: Response) => {
@@ -27,6 +30,6 @@ export const loginController = async (req: Request, res: Response) => {
     return
   }
 
-  // TODO: Crear token
-  res.status(200).json()
+  const token = jwt.sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env")
+  res.status(200).json({ token } as LoginResponse)
 }

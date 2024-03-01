@@ -33,7 +33,7 @@ export interface User {
  * @param user Usuario a añadir
  */
 export const createUser = async (user: User) => {
-  await db.query(CREATE_QUERY, [user.username, user.email, user.password])
+  return await db.query<User>(CREATE_QUERY, [user.username, user.email, user.password])
 }
 
 /**
@@ -58,12 +58,5 @@ export const findUserByEmail = async (email: string) => {
 export const findUsersByUsernameOrEmail = async (username: string, email: string) => {
   const res = await db.query<User>(FIND_BY_USERNAME_OR_EMAIL_QUERY, [username, email])
 
-  return res.rows.map(
-    (user) =>
-      ({
-        username: user.username,
-        email: user.email,
-        password: user.password,
-      }) as User,
-  )
+  return res.rows
 }
