@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY ./dist ./dist
 
-RUN npm install --production
+RUN npm install --omit-dev
 
 EXPOSE 8000
 

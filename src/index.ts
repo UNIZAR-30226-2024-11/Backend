@@ -1,15 +1,13 @@
-import express from "express"
-import { router } from "./api"
 import { createServer } from "http"
 import { Server } from "socket.io"
 
-const PORT = Number(process.env.PORT) || 8000
+import { app } from "./config"
 
-const app = express()
-app.use("/api", router)
+const PORT = Number(process.env.PORT) || 8000
 
 const httpServer = createServer(app)
 
+// Servidor WebSocket
 const io = new Server(httpServer, {
   cors: { origin: "*" },
 })
@@ -27,6 +25,7 @@ io.on("connection", (socket) => {
   })
 })
 
+// Lanza el servidor
 httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })

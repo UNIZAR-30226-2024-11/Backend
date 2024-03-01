@@ -1,3 +1,1 @@
-import router from "./routes"
-
-export { router }
+export * from "./routes"

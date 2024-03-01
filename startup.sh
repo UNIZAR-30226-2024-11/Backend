@@ -27,7 +27,9 @@ if ! docker-compose build; then
     exit 1
 fi
 
-if ! docker-compose up -d; then
-    echo "Error al arrancar las imágenes de Docker"
-    exit 1
+if [[ $1 == "dev" ]]; then
+    docker-compose up -d db
+    npm run dev
+else
+    docker-compose up
 fi
