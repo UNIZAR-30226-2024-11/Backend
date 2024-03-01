@@ -27,4 +27,9 @@ if ! docker-compose build; then
     exit 1
 fi
 
-docker-compose up
+if [[ $1 == "dev" ]]; then
+    docker-compose start db
+    npm run dev
+else
+    docker-compose up
+fi
