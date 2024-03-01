@@ -11,7 +11,7 @@ interface RegisterResponse {
   error?: string
 }
 
-export const registerController = async (req: Request<RegisterRequest>, res: Response<RegisterResponse>) => {
+export const registerController = async (req: Request, res: Response) => {
   console.log("[RegisterRequest] Recibido:", req.body)
 
   if (req.body.username === null || req.body.email === null || req.body.password === null) {
@@ -19,7 +19,7 @@ export const registerController = async (req: Request<RegisterRequest>, res: Res
   } else if (Object.keys(req.body).length !== 3) {
     res.status(400).json({ error: "Demasiados parámetros" })
   } else {
-    const { username, email, password } = req.body
+    const { username, email, password } = req.body as RegisterRequest
 
     try {
       const existingUsers = await findUsersByUsernameOrEmail(username, email)
@@ -30,11 +30,11 @@ export const registerController = async (req: Request<RegisterRequest>, res: Res
         res.status(400)
 
         if (existingUsers!.some((user) => user.email === email)) {
-          res.json({ error: "Correo ya en uso" })
+          res.json({ error: "Correo ya en uso" } as RegisterResponse)
         } else if (existingUsers!.some((user) => user.username === username)) {
-          res.json({ error: "Nombre de usuario ya en uso" })
+          res.json({ error: "Nombre de usuario ya en uso" } as RegisterResponse)
         } else {
-          res.json({ error: "Error desconocido" })
+          res.json({ error: "Error desconocido" } as RegisterResponse)
         }
       } else {
         await createUser({ username, email, password })

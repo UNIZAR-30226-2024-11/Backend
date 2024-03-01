@@ -10,7 +10,7 @@ interface LoginResponse {
   error?: string
 }
 
-export const loginController = async (req: Request<LoginRequest>, res: Response<LoginResponse>) => {
+export const loginController = async (req: Request, res: Response) => {
   console.log("[LoginRequest] Recibido:", req.body)
 
   const { email, password } = req.body as LoginRequest
@@ -24,16 +24,16 @@ export const loginController = async (req: Request<LoginRequest>, res: Response<
       const user = await findUserByEmail(email)
 
       if (user === null || user!.email !== email) {
-        res.status(401).json({ error: "Usuario no encontrado" })
+        res.status(401).json({ error: "Usuario no encontrado" } as LoginResponse)
       } else if (user!.password !== password) {
-        res.status(401).json({ error: "Contraseña incorrecta" })
+        res.status(401).json({ error: "Contraseña incorrecta" } as LoginResponse)
       } else {
         // TODO: Crear token
         res.status(200).json()
       }
     } catch (err) {
       console.error(err)
-      res.status(500).json({ error: "Error interno" })
+      res.status(500).json({ error: "Error interno" } as LoginResponse)
     }
   }
 }
