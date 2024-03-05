@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 # La bd se almacena en /var de la maquina host
 volumes:
@@ -25,11 +25,11 @@ services:
     ports:
       - 8000:8000
     networks:
-       graham-network:
+      graham-network:
         ipv4_address: 10.5.0.2
     depends_on:
-        db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:latest
@@ -51,4 +51,3 @@ services:
       timeout: 1s
     volumes:
       - graham-uno-db:/var/lib/postgresql/data
-

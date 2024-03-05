@@ -1,3 +1,7 @@
+/**
+ * @file Configuración de Express.js
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
 import bodyParser from "body-parser"
 import cors from "cors"
 import express, { Request, Response, NextFunction } from "express"

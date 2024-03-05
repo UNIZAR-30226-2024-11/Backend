@@ -1,3 +1,8 @@
+/**
+ * @file Modelo y controlador para el manejo de usuarios en la base de datos
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
+
 import { db } from "../config"
 
 // TODO: Una mejor forma de tratar erorres de DB usando pg.DatabaseError
@@ -17,9 +22,7 @@ const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
   FROM users
   WHERE username = $1 OR email = $2`
 
-/**
- * User representa un usuario registrado dentro del sistema.
- */
+/** User representa un usuario registrado dentro del sistema. */
 export interface User {
   id?: number
   username?: string
