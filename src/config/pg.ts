@@ -1,3 +1,8 @@
+/**
+ * @file Configuración del cliente PostgreSQL
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
+
 import { Pool } from "pg"
 
 const dbConfig = {

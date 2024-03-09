@@ -1,3 +1,8 @@
+/**
+ * @file Controlador de la ruta de registro de usuarios
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
+
 import bcrypt from "bcrypt"
 
 import { Request, Response } from "express"

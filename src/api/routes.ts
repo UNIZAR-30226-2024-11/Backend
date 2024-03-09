@@ -1,10 +1,15 @@
-import { loginController, registerController } from "../controller"
-import Router from "express"
+/**
+ * @file Configuración de las rutas HTTP orfecidas por el servidor
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
 
-const router = Router()
+import { Router } from "express"
+import { loginController, registerController } from "../controller"
+
+export const router = Router()
+
+// TODO: Documentar las rutas
 
 router.route("/login").post(loginController)
 
 router.route("/register").post(registerController)
-
-export { router }

@@ -1,3 +1,4 @@
-console.log(require("dotenv").config())
-export * from "./express"
-export * from "./pg"
+export { app } from "./express"
+export { server } from "./server"
+export { socket } from "./io"
+export { db } from "./pg"

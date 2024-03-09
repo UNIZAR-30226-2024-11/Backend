@@ -1,2 +1,2 @@
-export * from "./login"
-export * from "./register"
+export { loginController } from "./login"
+export { registerController } from "./register"

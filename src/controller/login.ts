@@ -1,3 +1,8 @@
+/**
+ * @file Controlador para el inicio de sesión de usuarios
+ * @author Dorian Wozniak <817570@unizar.es>
+ */
+
 import { sign } from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
