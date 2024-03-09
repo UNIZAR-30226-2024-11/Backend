@@ -32,3 +32,7 @@ El proyecto actualmente está estructurado de la siguiente manera:
 - **model**: Contiene los modelos de la base de datos así como las funciones de acceso a datos.
 
 Conforme se vayan añadiendo funcionalidades, se irá actualizando la estructura del proyecto. La lógica de las funcionalidades se implementará en sus respectivos directorios salvo lo anteriormente mencionado.
+
+## Variables de entorno
+
+El backend utiliza un fichero .env con las variables de entorno. De momento solo tiene efecto dentro del directorio `src/config/` y actualmente solo se utiliza para conectar la base de datos. **El fichero .env se debe actualizar en el canal de discord dedicado a ello.**

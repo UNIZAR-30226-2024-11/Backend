@@ -1,12 +1,11 @@
 import { Pool } from "pg"
 
-// TODO: Hacer que use variables de entorno
 const dbConfig = {
-  host: "10.5.0.3",
-  port: 5432,
-  user: "graham",
-  database: "graham-uno-db",
-  password: "password",
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWD,
 }
 
 // TODO: Quizas moverlo a un fichero cuando se vuelva grande
