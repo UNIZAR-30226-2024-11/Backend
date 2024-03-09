@@ -23,13 +23,21 @@ if ! npm run build; then
 fi
 
 if ! docker-compose build; then
-    echo "Error al construir las imágenes de Docker"
-    exit 1
+    if ! docker compose build; then
+        echo "Error al construir las imágenes de Docker"
+        exit 1
+    fi
 fi
 
 if [[ $1 == "dev" ]]; then
-    docker-compose up -d db
+    if ! docker-compose up -d db
+    then
+        docker compose up -d db
+    fi
     npm run dev
 else
-    docker-compose up
+    if ! docker-compose up
+    then
+        docker compose up
+    fi
 fi
