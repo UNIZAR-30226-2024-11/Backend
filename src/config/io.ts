@@ -8,6 +8,6 @@ import { server } from "./server"
 import { events } from "../api"
 
 // Añade soporte para WebSockets a la aplicación
-export const socket = new Server(server, { cors: { origin: "*" } })
+export const io = new Server(server, { cors: { origin: "*" } })
 
-events(socket)
+events(io)
