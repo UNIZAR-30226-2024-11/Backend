@@ -1,0 +1,29 @@
+
+name: Build BackEnd
+
+on:
+  workflow_dispatch:
+  #esto es para poder ejecutar el workflow sin necesidad de hacer un commit a main
+
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio al ejecutor
+        uses: actions/checkout@v4
+
+      # run utility services in the background
+      # using docker-compose (see docker-compose.yml file)
+      - name: Run docker-compose
+        run: docker-compose up -d
+
+      - name: Compilar y construir
+        # clean limpia los archivos temporales y de compilacion antiguos
+        # assembleRelease  compila el código fuente y crea el APK de lanzamiento
+        # test ejecuta las pruebas unitarias que hayamos definido en el proyecto
+        run: ./startup.sh clean assembleRelease test
