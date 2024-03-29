@@ -20,7 +20,7 @@ jobs:
       # run utility services in the background
       # using docker-compose (see docker-compose.yml file)
       - name: Run docker-compose
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Compilar y construir
         # clean limpia los archivos temporales y de compilacion antiguos
