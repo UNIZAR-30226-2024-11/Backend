@@ -3,7 +3,7 @@ export enum CardColor {
 	Green = "green",
 	Red = "red",
 	Yellow = "yellow",
-	Black = "black",
+	Black = "black"
 }
 
 export enum CardAction {
@@ -11,7 +11,7 @@ export enum CardAction {
 	Reverse = "reverse",
 	Draw2 = "draw2",
 	Draw4 = "draw4",
-	Wild = "wild",
+	Wild = "wild"
 }
 
 export interface Card {
