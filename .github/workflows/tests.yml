@@ -27,8 +27,8 @@ jobs:
       - name: Actualizar dependencias
         run: npm update
 
-      - name: Instalar ultima version de node.js
-        run: nvm install node
+      - name: Actualizar ESLint a la última versión disponible 
+        run: npm install eslint@latest --save-dev
 
       - name: Lint
         run: npm run lint
