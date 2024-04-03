@@ -26,7 +26,10 @@ jobs:
     
       - name: Actualizar dependencias
         run: npm update
-        
+
+      - name: Instalar ultima version de node.js
+        run: nvm install node
+
       - name: Lint
         run: npm run lint
 
