@@ -1,5 +1,5 @@
 
-name: Build BackEnd
+name: Test BackEnd
 
 on:
   workflow_dispatch:
@@ -16,9 +16,9 @@ jobs:
     steps:
       - name: Clonar repositorio al ejecutor
         uses: actions/checkout@v4
-
-      - name: Compilar y construir
-        # clean limpia los archivos temporales y de compilacion antiguos
-        # assembleRelease  compila el código fuente y crea el APK de lanzamiento
-        # test ejecuta las pruebas unitarias que hayamos definido en el proyecto
-        run: ./startup.sh clean assembleRelease test
+        
+      - name: Instalar dependencias
+        run: npm i --save-dev @types/node
+        
+      - name: Compilar aplicacion
+        run: npm run build
