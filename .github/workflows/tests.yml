@@ -23,7 +23,10 @@ jobs:
 
       - name: Instalar dependencias
         run: npm install --no-audit --no-fund --no-optional
-
+    
+      - name: Actualizar dependencias
+        run: npm update
+        
       - name: Lint
         run: npm run lint
 
