@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Clonar repositorio al ejecutor
         uses: actions/checkout@v4
-
+        
+      - name: Instalar dependencias
+        run: npm i --save-dev @types/node
+        
       - name: Compilar aplicacion
         run: npm run build
