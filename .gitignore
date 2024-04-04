@@ -132,3 +132,7 @@ dist
 .pnp.*
 
 .vscode
+
+cypress/plugins
+cypress/support
+cypress/videos

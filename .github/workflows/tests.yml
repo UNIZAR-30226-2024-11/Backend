@@ -36,8 +36,12 @@ jobs:
       - name: Compilar proyecto
         run: npm run build
 
-      - name: Preparar los tests de cypress de tests.js
-        run: npm run start-test
+      - name: Test
+        run: npm test
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      - name: Test E2E
+        uses: cypress-io/github-action@v6
+        with:
+            command: npm run test:e2e
+            start: npm run start-test
+            wait-on: http://localhost:8000

@@ -25,7 +25,7 @@
         "dev": "nodemon",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write .",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "clean": "tsc --build --clean",
         "start-test": "NODE_ENV=test node ./cypress/integration/app.js",
         "test:e2e": "npx cypress run"
