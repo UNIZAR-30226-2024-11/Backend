@@ -1,7 +1,8 @@
 /* global cy */
-it('Example test', function() {
-    it('should visit the home page', function() {
+
+describe('Example test', () => {
+    it('Descripción de la prueba', () => {
+        // Acciones que quieres probar utilizando Cypress
         cy.visit('https://localhost:8000');
-        // cy.contains('Welcome to My App');
-    });
-});
+    })
+})
