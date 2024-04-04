@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -22,7 +24,7 @@ jobs:
           node-version: '20'
 
       - name: Instalar dependencias
-        run: npm install --no-audit --no-fund --no-optional
+        run: npm ci
     
       - name: Actualizar dependencias
         run: npm update
