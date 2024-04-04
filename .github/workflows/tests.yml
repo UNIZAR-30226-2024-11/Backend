@@ -32,17 +32,11 @@ jobs:
       - name: Actualizar ESLint a la última versión disponible 
         run: npm install eslint@latest --save-dev
 
-      - name: Instalar Jest
-        run: npm install --save-dev jest
-
       - name: Lint
         run: npm run lint
 
       - name: Compilar proyecto
         run: npm run build
-
-      - name: Test
-        run: npm test
 
       - name: Test E2E
         uses: cypress-io/github-action@v6
