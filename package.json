@@ -25,9 +25,9 @@
         "dev": "nodemon",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write .",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "clean": "tsc --build --clean",
-        "start-test": "test node test.js",
+        "start-test": "NODE_ENV=test node ./cypress/integration/app.js",
         "test:e2e": "npx cypress run"
     },
     "devDependencies": {
@@ -58,5 +58,10 @@
         "jsonwebtoken": "^9.0.2",
         "pg": "^8.11.3",
         "socket.io": "^4.7.4"
+    },
+    "eslintConfig": {
+        "rules": {
+            "@typescript-eslint/no-unused-vars": "off"
+        }
     }
 }
