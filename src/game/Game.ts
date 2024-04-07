@@ -13,7 +13,7 @@ export class Game {
 	drawDeck: Card[] = [];
 	direction: 1 | -1 = 1;
 	sumToDraw: number = 0;
-	hasSkipped: boolean = false;
+	hasSkipped: boolean = true;
 	currentWildColor: CardColor = CardColor.Black;
 
 
@@ -64,10 +64,38 @@ export class Game {
 	}
 
 	playCard(playerId: number, card : Card) {
+		if (!this.hasSkipped) return false;
 		const player = this.players[playerId];
 		const cardIndex = player.hand.findIndex(c => c.id === card.id);
 		if (cardIndex === -1) return false;
-		// TODO: Continuar con la lógica de jugar cartas
+		if (!this.canPlayCard(card)) return false;
+		player.hand.splice(cardIndex, 1);
+		this.tableDeck.push(card);
+		if (card.action === CardAction.Reverse) {
+			this.direction *= -1;
+		}
+		if (card.action === CardAction.Skip) {
+			this.hasSkipped = false;
+		}
+		if (card.action === CardAction.Draw2) {
+			this.sumToDraw += 2;
+		}
+		if (card.action === CardAction.Draw4) {
+			this.sumToDraw += 4;
+		}
+		if (card.action === CardAction.Wild) {
+			this.currentWildColor = this.chooseColor();
+		}
+		if (card.action === CardAction.Draw4) {
+			this.sumToDraw += 4;
+			this.currentWildColor = this.chooseColor();
+		}
+
 	}
 
+
+	chooseColor(): CardColor {
+		// TODO: Implementar lógica para elegir color
+		return CardColor.Red;
+	}
 }
