@@ -1,4 +1,4 @@
-/* global cy */
+/* global describe, it, cy */
 
 describe('Example test', () => {
     it('Descripción de la prueba', () => {
