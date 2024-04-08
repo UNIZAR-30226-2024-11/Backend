@@ -35,11 +35,11 @@ jobs:
       - name: Actualizar ESLint a la última versión disponible 
         run: npm install @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
 
-      - name: Compilar proyecto
-        run: npm run build
-
       - name: Lint
         run: npm run eslint
+
+      - name: Compilar proyecto
+        run: npm run build
 
       - name: Lanzar app
         run: npm run start-test
