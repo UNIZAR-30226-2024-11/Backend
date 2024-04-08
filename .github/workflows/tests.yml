@@ -33,7 +33,7 @@ jobs:
         run: npm install eslint-plugin-react@latest eslint-plugin-jest@latest --save-dev
 
       - name: Lint
-        run: npm run eslint
+        run: npm run eslint --fix
 
       - name: Compilar proyecto
         run: npm run build
