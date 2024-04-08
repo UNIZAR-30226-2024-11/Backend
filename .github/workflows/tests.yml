@@ -33,7 +33,7 @@ jobs:
         run: npm update
 
       - name: Actualizar ESLint a la última versión disponible 
-        run: npm install eslint@latest --save-dev
+        run: npm install @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
 
       - name: Lint
         run: npm run eslint
