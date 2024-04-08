@@ -41,9 +41,12 @@ jobs:
       - name: Compilar proyecto
         run: npm run build
 
+      - name: Compilar proyecto
+        run: npm run node app.js
+
       - name: Test E2E
         uses: cypress-io/github-action@v6
         with:
             command: npm run test:e2e
-            start: npm run start-test
+            # start: npm run start-test
             wait-on: http://localhost:8000
