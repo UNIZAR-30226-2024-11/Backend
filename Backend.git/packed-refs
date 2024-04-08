@@ -1,0 +1,11 @@
+# pack-refs with: peeled fully-peeled sorted 
+69d73fd45050726c6fae0658f1c089ab8207a3d8 refs/heads/game-logic
+03d7021c043cbecfc55c90ed557dadf0df751c6a refs/heads/lobbies-feature
+75ecb660d6a5798ee89e171c7e32752ade18945e refs/heads/main
+60d5b143652af07223eb0f81582e5fb11bb5f71e refs/heads/shop-feature
+4e8ef3d0db9aed2b62097fef75946756ad8dacb4 refs/heads/tests-auth
+1aa2fba691304b65fe7e7b179492dc02c74b2ee3 refs/heads/users-feature
+1d811ffa55118eff5fb88563aa83e4d7f4c0ff8e refs/pull/10/head
+b007d066b4397e7187dd97aa11cc5e537deeda79 refs/pull/11/head
+60d5b143652af07223eb0f81582e5fb11bb5f71e refs/pull/12/head
+1aa2fba691304b65fe7e7b179492dc02c74b2ee3 refs/pull/2/head

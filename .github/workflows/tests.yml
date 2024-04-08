@@ -26,6 +26,9 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
     
+      - name: Instalar Cypress
+        run: npm install cypress --save-dev
+
       - name: Actualizar dependencias
         run: npm update
 
