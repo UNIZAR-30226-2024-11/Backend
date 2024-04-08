@@ -33,7 +33,7 @@ jobs:
         run: npm update
 
       - name: Actualizar ESLint a la última versión disponible 
-        run: npm install eslint-plugin-react@latest eslint-plugin-jest --save-dev
+        run: npm install eslint-plugin-react@latest eslint-plugin-jest@latest --save-dev
 
       - name: Lint
         run: npm run eslint
