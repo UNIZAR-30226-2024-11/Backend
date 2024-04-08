@@ -60,6 +60,7 @@
         "socket.io": "^4.7.4"
     },
     "eslintConfig": {
+        "extends": "eslint:recommended",
         "rules": {
             "@typescript-eslint/no-unused-vars": "off"
         }
