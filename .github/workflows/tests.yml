@@ -36,7 +36,7 @@ jobs:
         run: npm install eslint@latest --save-dev
 
       - name: Lint
-        run: npm run lint
+        run: npm run eslint
 
       - name: Compilar proyecto
         run: npm run build
