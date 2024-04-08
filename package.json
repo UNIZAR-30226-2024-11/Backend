@@ -23,7 +23,7 @@
         "build": "tsc",
         "start": "node dist/index.js",
         "dev": "nodemon",
-        "eslint": "eslint './**/*.{js,jsx}'",
+        "lint": "eslint . --ext .ts",
         "format": "prettier --write .",
         "test": "jest",
         "clean": "tsc --build --clean",
