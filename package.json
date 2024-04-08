@@ -27,7 +27,7 @@
         "format": "prettier --write .",
         "test": "jest",
         "clean": "tsc --build --clean",
-        "start-test": "NODE_ENV=test node ./cypress/integration/app.js",
+        "start-test": "node app.js",
         "test:e2e": "npx cypress run"
     },
     "devDependencies": {
