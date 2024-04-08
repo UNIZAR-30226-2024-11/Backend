@@ -1,8 +1,7 @@
 requestAnimationFrame("dotev").config();
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 8000;
-module.exports = app;
 
 app.get('/', (req, res) => {
 
