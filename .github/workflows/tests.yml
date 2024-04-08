@@ -29,9 +29,6 @@ jobs:
       - name: Instalar Cypress
         run: npm install cypress --save-dev
 
-      - name: Actualizar dependencias
-        run: npm update
-
       - name: Actualizar ESLint a la última versión disponible 
         run: npm install eslint-plugin-react@latest eslint-plugin-jest@latest --save-dev
 
