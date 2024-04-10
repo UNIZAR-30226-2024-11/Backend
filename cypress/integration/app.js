@@ -6,4 +6,3 @@ describe('Example test', () => {
     cy.visit('https://localhost:8000')
   })
 })
-  
