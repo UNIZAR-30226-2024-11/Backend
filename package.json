@@ -23,11 +23,11 @@
         "build": "tsc",
         "start": "node dist/index.js",
         "dev": "nodemon",
-        "lint": "eslint . --ext .ts",
+        "eslint": "eslint './**/*.{js,jsx}'",
         "format": "prettier --write .",
         "test": "jest",
         "clean": "tsc --build --clean",
-        "start-test": "NODE_ENV=test node ./cypress/integration/app.js",
+        "start-test": "node app.js",
         "test:e2e": "npx cypress run"
     },
     "devDependencies": {
@@ -60,6 +60,7 @@
         "socket.io": "^4.7.4"
     },
     "eslintConfig": {
+        "extends": "eslint:recommended",
         "rules": {
             "@typescript-eslint/no-unused-vars": "off"
         }
