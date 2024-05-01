@@ -63,8 +63,25 @@ export class Game {
 		return false;
 	}
 
+	canPlay(playerId: number): boolean {
+		const player = this.players[playerId];
+		return player.hand.some(card => this.canPlayCard(card));
+	}
+
 	playCard(playerId: number, card : Card) {
-		if (!this.hasSkipped) return false;
+		if (!this.hasSkipped){
+			this.hasSkipped = true;
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
+		}
+		if (this.sumToDraw > 0){
+			for (let i = 0; i < this.sumToDraw; i++){
+				this.players[this.currentPlayer].hand.push(this.drawDeck.pop()!);
+			}
+			this.sumToDraw = 0;
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
+		}
 		const player = this.players[playerId];
 		const cardIndex = player.hand.findIndex(c => c.id === card.id);
 		if (cardIndex === -1) return false;
@@ -73,24 +90,44 @@ export class Game {
 		this.tableDeck.push(card);
 		if (card.action === CardAction.Reverse) {
 			this.direction *= -1;
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
 		}
 		if (card.action === CardAction.Skip) {
 			this.hasSkipped = false;
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
 		}
 		if (card.action === CardAction.Draw2) {
 			this.sumToDraw += 2;
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
 		}
 		if (card.action === CardAction.Draw4) {
 			this.sumToDraw += 4;
+			this.currentWildColor = this.chooseColor();
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
 		}
 		if (card.action === CardAction.Wild) {
 			this.currentWildColor = this.chooseColor();
-		}
-		if (card.action === CardAction.Draw4) {
-			this.sumToDraw += 4;
-			this.currentWildColor = this.chooseColor();
+			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+			return;
 		}
 
+		this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
+		return;
+
+	}
+
+	cantPlay(playerId: number) {
+		const player = this.players[playerId];
+		var card = this.drawDeck.pop() as Card;
+		while (!this.canPlayCard(card)){
+			player.hand.push(card);
+			card = this.drawDeck.pop() as Card;
+		}
+		this.playCard(playerId, card);
 	}
 
 
