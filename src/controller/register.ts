@@ -8,17 +8,8 @@ import bcrypt from "bcrypt"
 import { Request, Response } from "express"
 import { createUser, findUsersByUsernameOrEmail } from "../model"
 
-// TODO: Tiene que haber una mejor forma de hacer esto
-
-interface RegisterRequest {
-  username: string
-  email: string
-  password: string
-}
-
-interface RegisterResponse {
-  error?: string
-}
+type RegisterRequest = Request<{}, {}, { username: string; email: string; password: string }>
+type RegisterResponse = Response<{ error?: string }>
 
 /**
  *
@@ -26,14 +17,14 @@ interface RegisterResponse {
  * @param res
  * @returns
  */
-export const registerController = async (req: Request, res: Response) => {
+export const registerController = async (req: RegisterRequest, res: RegisterResponse) => {
   // El cuerpo de la petición tiene datos incorrectos
   if (!req.body.username || !req.body.email || !req.body.password) {
     res.status(400).json({ error: "Faltan parámetros" })
     return
   }
 
-  const { username, email, password }: RegisterRequest = req.body
+  const { username, email, password } = req.body
 
   try {
     // Busca si los datos ya están en uso
@@ -43,9 +34,9 @@ export const registerController = async (req: Request, res: Response) => {
       res.status(400) // 409 Conflict es otra alternativa de código de estado
 
       if (existingUsers!.some((user) => user.email === email)) {
-        res.json({ error: "Correo ya en uso" } as RegisterResponse)
+        res.json({ error: "Correo ya en uso" })
       } else if (existingUsers!.some((user) => user.username === username)) {
-        res.json({ error: "Nombre de usuario ya en uso" } as RegisterResponse)
+        res.json({ error: "Nombre de usuario ya en uso" })
       }
 
       return

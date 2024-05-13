@@ -8,8 +8,6 @@ import { loginController, registerController } from "../controller"
 
 export const router = Router()
 
-// TODO: Documentar las rutas
-
 router.route("/login").post(loginController)
 
 router.route("/register").post(registerController)

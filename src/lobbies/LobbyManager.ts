@@ -1,33 +1,91 @@
-import { Server } from "socket.io"
-
 import { Lobby } from "./Lobby"
 
+/**
+ * Clase gestora de salas de juego
+ */
 export class LobbyManager {
-  private readonly lobbies: Map<string, Lobby> = new Map()
+  private static lobbies = new Map<string, Lobby>()
 
-  constructor() {}
+  /**
+   * Crea una nueva sala de juego
+   *
+   * @returns ID de sala
+   */
+  public static createLobby(): Lobby {
+    const code = this.generateCode()
+    const lobby = new Lobby(code)
 
-  public createLobby() {
-    const lobby = new Lobby(this.generateCode())
-  }
+    this.lobbies.set(code, lobby)
 
-  public joinLobby(code: string) {
-    const lobby = this.lobbies.get(code)
-
-    if (lobby) lobby.join()
-    else console.error("Lobby no encontrado")
+    return lobby
   }
 
   /**
-   * Genera un código de seis caracteres alfanuméricos para identificar la sala
+   * Elimina una sala de juego
    *
-   * @returns Código de sala válido
+   * @param id ID de sala
    */
-  private generateCode(): string {
-    let code: string
+  public static deleteLobby(id: string) {
+    this.lobbies.delete(id)
+  }
+
+  /**
+   * Añade a un usuario a una sala de juego
+   *
+   * @param user ID de usuario a añadir
+   * @param id ID de sala
+   */
+  public static joinLobby(user: number, id: string): Lobby | null {
+    const lobby = this.lobbies.get(id)
+
+    if (lobby) {
+      lobby.join(user)
+    } else {
+      throw new Error("No se ha encontrado la sala de juego")
+    }
+
+    return lobby
+  }
+
+  /**
+   * Saca a un usuario de una sala de juego
+   *
+   * @param user
+   * @param id
+   */
+  public static leaveLobby(user: number, id: string) {
+    const lobby = this.lobbies.get(id)
+
+    if (lobby) {
+      lobby.leave(user)
+
+      if (lobby.users.length === 0) {
+        this.deleteLobby(id)
+      }
+    } else {
+      throw new Error("No se ha encontrado la sala de juego")
+    }
+  }
+
+  /**
+   * Devuelve un codigo único que identifica una sala de juego.
+   *
+   * El código devuelto es
+   *    - Único entre las salas activas
+   *    - Alfanumérico (letras en minúscula y números)
+   *    - De longitud 6
+   *
+   * @returns {string} Código de sala de juego
+   */
+  private static generateCode(): string {
+    const LENGTH = 6
+    const ALPHABET = "abcdefghijklmnopqrstuvwxyz1234567890"
+    let code = ""
 
     do {
-      code = Math.random().toString(36).substring(2, 8)
+      for (let i = 0; i < LENGTH; i++) {
+        code += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length))
+      }
     } while (this.lobbies.has(code))
 
     return code

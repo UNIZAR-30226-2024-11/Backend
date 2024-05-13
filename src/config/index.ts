@@ -3,5 +3,5 @@ console.log(dotenv.config())
 
 export { app } from "./express"
 export { server } from "./server"
-export { socket } from "./io"
+export { io as socket } from "./io"
 export { db } from "./pg"
