@@ -32,9 +32,12 @@ export const events = (io: Server) => {
       state = leaveLobbyController(io, socket, data, state)
     })
 
-    socket.on("disconnect", (data: {}) => {
+    socket.on("disconnecting", (data: {}) => {
       state = leaveLobbyController(io, socket, data, state)
-      console.log("Conexión perdida")
+    })
+
+    socket.on("disconnect", (data: {}) => {
+      console.log("Conexión perdida con el cliente", socket.id)
     })
   })
 }
