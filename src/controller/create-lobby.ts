@@ -43,10 +43,8 @@ export const createLobbyController = (
 
   if (!lobby) {
     user = data.user
-    lobby = LobbyManager.createLobby()
-    res = { code: lobby.code }
-
-    console.log(`El usuario ${user} ha creado la sala ${lobby.code}`)
+    const thisLobby = LobbyManager.createLobby()
+    res = { code: thisLobby.code }
   } else {
     res = { error: "Ya estas en una sala" }
     console.log(`El usuario ${user} ya está en una sala`)
