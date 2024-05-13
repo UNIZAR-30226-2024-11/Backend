@@ -3,13 +3,6 @@ import { LobbyManager } from "../lobbies/LobbyManager"
 import { Server, Socket } from "socket.io"
 
 /**
- * Solicitud de creación de una sala nueva
- */
-type CreateLobbyRequest = {
-  user: number
-}
-
-/**
  * Respuesta de creación de una sala nueva
  */
 type CreateLobbyResponse = {
@@ -26,7 +19,7 @@ type ErrorResponse = {
 export const createLobbyController = (
   io: Server,
   socket: Socket,
-  data: CreateLobbyRequest,
+  data: {},
   state: {
     lobby: Lobby | null
     user: number | null
@@ -42,7 +35,6 @@ export const createLobbyController = (
   let { lobby, user, ioRoom } = state
 
   if (!lobby) {
-    user = data.user
     const thisLobby = LobbyManager.createLobby()
     res = { code: thisLobby.code }
   } else {
