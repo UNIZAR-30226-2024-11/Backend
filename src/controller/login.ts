@@ -9,7 +9,14 @@ import bcrypt from "bcrypt"
 import { Request, Response } from "express"
 import { findUserByEmail } from "../model"
 
+/**
+ * Solicitud de inicio de sesión
+ */
 type LoginRequest = Request<{}, {}, { email: string; password: string }>
+
+/**
+ * Respuesta de inicio de sesión
+ */
 type LoginResponse = Response<{ error: string } | { token: string }>
 
 export const loginController = async (req: LoginRequest, res: LoginResponse) => {

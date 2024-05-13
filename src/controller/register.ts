@@ -8,8 +8,22 @@ import bcrypt from "bcrypt"
 import { Request, Response } from "express"
 import { createUser, findUsersByUsernameOrEmail } from "../model"
 
+/**
+ * Solicitud de registro de un nuevo usuario
+ */
 type RegisterRequest = Request<{}, {}, { username: string; email: string; password: string }>
-type RegisterResponse = Response<{ error?: string }>
+
+/**
+ * Respuesta de registro de un nuevo usuario
+ */
+type RegisterResponse = Response<{} | ErrorResponse>
+
+/**
+ * Respuesta de error controlado
+ */
+type ErrorResponse = {
+  error: string
+}
 
 /**
  *

@@ -2,14 +2,23 @@ import { Lobby } from "../lobbies/Lobby"
 import { LobbyManager } from "../lobbies/LobbyManager"
 import { Server, Socket } from "socket.io"
 
+/**
+ * Solicitud de creación de una sala nueva
+ */
 type CreateLobbyRequest = {
   user: number
 }
 
+/**
+ * Respuesta de creación de una sala nueva
+ */
 type CreateLobbyResponse = {
   code: string
 }
 
+/**
+ * Respuesta de error controlado
+ */
 type ErrorResponse = {
   error: string
 }
