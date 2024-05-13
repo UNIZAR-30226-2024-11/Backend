@@ -24,9 +24,8 @@ CREATE TABLE IF NOT EXISTS users (
 `
 
 // Configuración de la base de datos
-//export const db = new Pool(dbConfig)
+export const db = new Pool(dbConfig)
 
-/*
 db.query(tables)
   .then(() => {
     console.log(`Connected to database ${dbConfig.host}:${dbConfig.port}`)
@@ -34,7 +33,6 @@ db.query(tables)
   .catch((err) => {
     console.error(err)
   })
-*/
 
-console.log("[INFO]: LA CONEXIÓN CON LA BD ESTÁ DESHABILITADA")
-export const db = new Pool()
+//console.log("[INFO]: LA CONEXIÓN CON LA BD ESTÁ DESHABILITADA")
+//export const db = new Pool()
