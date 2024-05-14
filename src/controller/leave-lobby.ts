@@ -11,16 +11,18 @@ export const leaveLobbyController = (
   data: {},
   state: {
     lobby: Lobby | null
+    game: any
     user: number | null
     ioRoom: string | null
   },
 ): {
   lobby: Lobby | null
+  game: null
   user: number | null
   ioRoom: string | null
 } => {
   let res: {} | ErrorResponse
-  let { lobby, user, ioRoom } = state
+  let { lobby, game, user, ioRoom } = state
 
   if (lobby) {
     lobby.leave(user!)
@@ -40,5 +42,5 @@ export const leaveLobbyController = (
   }
 
   socket.emit("lobby-left", res)
-  return { lobby, user, ioRoom }
+  return { lobby, game, user, ioRoom }
 }
