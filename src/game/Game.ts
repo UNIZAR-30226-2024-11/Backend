@@ -1,4 +1,17 @@
 import { Card, CardAction, CardColor, newDeck, shuffleDeck } from "./Cards";
+import { db } from "../config";
+import { QueryResult, QueryResultError } from 'pg';
+
+const CREATE_GAME = `
+  INSERT INTO game (player1, player2, player3, player4, current_player, direction, sumToDraw, hasSkipped, currentWildColor, tableDECK, drawDeck)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+  ` 
+
+const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
+  SELECT DISTINCT *
+  FROM users
+  WHERE username = $1 OR email = $2
+  `
 
 interface Player {
 	id: number;
@@ -23,11 +36,42 @@ export class Game {
 	}
 
 	start() {
+		// Crear una nueva partida en la tabla "game"
+		db.query(CREATE_GAME, [
+			this.players[0].id, // player1
+			this.players[1].id, // player2
+			this.players[2].id, // player3
+			this.players[3].id, // player4
+			this.currentPlayer,
+			this.direction,
+			this.sumToDraw,
+			this.hasSkipped ? 1 : 0,
+			this.currentWildColor,
+			JSON.stringify(this.tableDeck),
+			JSON.stringify(this.drawDeck)
+		]).then((result: QueryResult<any>) => {
+			// Obtener el ID de la partida generada
+			const gameId = result.rows[0].id;
+			// Insertar las cartas de cada jugador en la tabla "player_card"
+			for (let player of this.players) {
+				player.hand = this.drawDeck.splice(0, 7);
+				db.query(`
+					INSERT INTO player_card (game, player, hand)
+					VALUES ($1, $2, $3)`, [gameId, player.id, JSON.stringify(player.hand)]);
+			}
+		}).catch((error: QueryResultError) => {
+			console.error("Error al iniciar la partida:", error);
+		});
+
+		/*
 		this.drawDeck = newDeck();
 		this.tableDeck = [this.drawDeck.pop()!];
 		for (let player of this.players) {
 			player.hand = this.drawDeck.splice(0, 7);
-		}
+			db.query(`
+			INSERT INTO player_cards (partida_id, jugador_id, carta_id)
+            VALUES ($1, $2, $3)`, [gameId, player.id, JSON.stringify(player.hand)]);
+		}*/
 	}
 
 	canPlayCard(card : Card): boolean {
