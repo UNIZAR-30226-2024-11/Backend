@@ -1,4 +1,4 @@
-import { Game } from "game";
+import { Game } from "../game";
 import { Lobby } from "../lobbies/Lobby";
 import { Server, Socket } from "socket.io";
 
