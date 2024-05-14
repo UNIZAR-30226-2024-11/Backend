@@ -1,6 +1,6 @@
 import { Card, CardAction, CardColor, newDeck, shuffleDeck } from "./Cards";
 import { db } from "../config";
-import { QueryResult, QueryResultError } from 'pg';
+import { QueryResult } from 'pg';
 
 const CREATE_GAME = `
   INSERT INTO game (player1, player2, player3, player4, current_player, direction, sumToDraw, hasSkipped, currentWildColor, tableDECK, drawDeck)
@@ -59,7 +59,7 @@ export class Game {
 					INSERT INTO player_card (game, player, hand)
 					VALUES ($1, $2, $3)`, [gameId, player.id, JSON.stringify(player.hand)]);
 			}
-		}).catch((error: QueryResultError) => {
+		}).catch((error: any) => {
 			console.error("Error al iniciar la partida:", error);
 		});
 
