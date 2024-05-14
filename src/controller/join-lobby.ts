@@ -30,16 +30,18 @@ export const joinLobbyController = (
   data: JoinLobbyRequest,
   state: {
     lobby: Lobby | null
+    game: any
     user: number | null
     ioRoom: string | null
   },
 ): {
   lobby: Lobby | null
+  game: null
   user: number | null
   ioRoom: string | null
 } => {
   let res: JoinLobbyResponse | ErrorResponse
-  let { lobby, user, ioRoom } = state
+  let { lobby, game, user, ioRoom } = state
 
   if (!lobby) {
     user = data.user
@@ -67,5 +69,5 @@ export const joinLobbyController = (
   }
 
   socket.emit("lobby-joined", res)
-  return { lobby, user, ioRoom }
+  return { lobby, game, user, ioRoom }
 }

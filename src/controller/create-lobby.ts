@@ -22,17 +22,19 @@ export const createLobbyController = (
   data: {},
   state: {
     lobby: Lobby | null
+    game: any
     user: number | null
     ioRoom: string | null
   },
 ): {
   lobby: Lobby | null
+  game: null
   user: number | null
   ioRoom: string | null
 } => {
   let res: CreateLobbyResponse | ErrorResponse
 
-  let { lobby, user, ioRoom } = state
+  let { lobby, game, user, ioRoom } = state
 
   if (!lobby) {
     const thisLobby = LobbyManager.createLobby()
@@ -44,5 +46,5 @@ export const createLobbyController = (
 
   socket.emit("lobby-created", res)
 
-  return { lobby, user, ioRoom }
+  return { lobby, game, user, ioRoom }
 }

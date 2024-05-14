@@ -3,9 +3,11 @@
  * @author Dorian Wozniak <817570@unizar.es>
  */
 
-import { createLobbyController, joinLobbyController, leaveLobbyController } from "../controller"
+import { Game } from "game"
+import { createLobbyController, joinLobbyController, leaveLobbyController, playCardController, chooseCardColorController, startGameController } from "../controller"
 import { Lobby } from "../lobbies/Lobby"
 import type { Server, Socket } from "socket.io"
+import { start } from "repl"
 
 /**
  * Configura los eventos disponibles dado un servidor Socket.io
@@ -18,9 +20,10 @@ export const events = (io: Server) => {
 
     let state: {
       lobby: Lobby | null
+      game: Game | null
       user: number | null
       ioRoom: string | null
-    } = { lobby: null, user: null, ioRoom: null }
+    } = { lobby: null, game: null, user: null, ioRoom: null }
 
     socket.on("create-lobby", (data) => (state = createLobbyController(io, socket, data, state)))
 
@@ -38,6 +41,18 @@ export const events = (io: Server) => {
 
     socket.on("disconnect", (data: {}) => {
       console.log("Conexión perdida con el cliente", socket.id)
+    })
+
+    socket.on("play-card", (data) => {
+      state = playCardController(io, socket, data, state)
+    })
+
+    socket.on("choose-card-color", (data) => {
+      state = chooseCardColorController(io, socket, data, state)
+    })
+
+    socket.on("start-game", (data: {}) => {
+      state = startGameController(io, socket, data, state)
     })
   })
 }

@@ -149,12 +149,10 @@ export class Game {
 		}
 		if (card.action === CardAction.Draw4) {
 			this.sumToDraw += 4;
-			this.currentWildColor = this.chooseColor();
 			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
 			return;
 		}
 		if (card.action === CardAction.Wild) {
-			this.currentWildColor = this.chooseColor();
 			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
 			return;
 		}
@@ -175,8 +173,21 @@ export class Game {
 	}
 
 
-	chooseColor(): CardColor {
+	chooseColor(CardColor: CardColor) {
 		// TODO: Implementar lógica para elegir color
-		return CardColor.Red;
+		this.currentWildColor = CardColor;
+	}
+
+	getState() {
+		return {
+			players: this.players,
+			currentPlayer: this.currentPlayer,
+			tableDeck: this.tableDeck,
+			drawDeck: this.drawDeck.length,
+			direction: this.direction,
+			sumToDraw: this.sumToDraw,
+			hasSkipped: this.hasSkipped,
+			currentWildColor: this.currentWildColor,
+		};
 	}
 }
