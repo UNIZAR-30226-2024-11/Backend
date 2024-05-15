@@ -20,6 +20,7 @@ interface Player {
 }
 
 export class Game {
+	gameId: number | null = null;
 	players: Player[] = [];
 	currentPlayer: number = 0;
 	tableDeck: Card[] = [];
@@ -51,13 +52,14 @@ export class Game {
 			JSON.stringify(this.drawDeck)
 		]).then((result: QueryResult<any>) => {
 			// Obtener el ID de la partida generada
-			const gameId = result.rows[0].id;
+			this.gameId = result.rows[0].id;
+			console.log("Nueva partida creada:", gameId);
 			// Insertar las cartas de cada jugador en la tabla "player_card"
 			for (let player of this.players) {
 				player.hand = this.drawDeck.splice(0, 7);
 				db.query(`
 					INSERT INTO player_card (game, player, hand)
-					VALUES ($1, $2, $3)`, [gameId, player.id, JSON.stringify(player.hand)]);
+					VALUES ($1, $2, $3)`, [this.gameId, player.id, JSON.stringify(player.hand)]);
 			}
 		}).catch((error: any) => {
 			console.error("Error al iniciar la partida:", error);
@@ -68,9 +70,6 @@ export class Game {
 		this.tableDeck = [this.drawDeck.pop()!];
 		for (let player of this.players) {
 			player.hand = this.drawDeck.splice(0, 7);
-			db.query(`
-			INSERT INTO player_cards (partida_id, jugador_id, carta_id)
-            VALUES ($1, $2, $3)`, [gameId, player.id, JSON.stringify(player.hand)]);
 		}*/
 	}
 
@@ -156,6 +155,20 @@ export class Game {
 			this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
 			return;
 		}
+		// Actualiza la base de datos que registra las cartas del jugador
+		db.query(`
+			UPDATE player_card
+			SET hand = $1
+			WHERE game_id = $2 AND player_id = $3
+		`, [player.hand, this.gameId, playerId])
+		.then(() => {
+			console.log("Carta jugada y actualizada en la base de datos.");
+			// Añade la carta al drawDeck de la partida
+			this.drawDeck.push(card);
+		})
+		.catch((error: any) => {
+			console.error("Error al actualizar la carta jugada en la base de datos:", error);
+		});
 
 		this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
 		return;
