@@ -170,6 +170,35 @@ export class Game {
 			console.error("Error al actualizar la carta jugada en la base de datos:", error);
 		});
 
+
+		// Actualiza la base de datos para mantener el estado de la partida
+		db.query(`
+			UPDATE game
+			SET current_player = $1,
+				direction= $2,
+				sumToDraw = $3,
+				hasSkipped = $4,
+				curentWildColor = $5,
+				tableDeck = $6,
+				drawDeck = $7,
+			WHERE game_id = $8
+		`, [
+			this.currentPlayer,
+			this.direction,
+			this.sumToDraw,
+			this.hasSkipped ? 1 : 0,
+			this.currentWildColor,
+			JSON.stringify(this.tableDeck),
+			JSON.stringify(this.drawDeck),
+			this.gameId])
+		.then(() => {
+			console.log("Estado de la partida actualizado en la base de datos.");
+		})
+		.catch((error: any) => {
+			console.error("Error al actualizar el estado de la partida en la base de datos:", error);
+		});
+
+
 		this.currentPlayer = (this.currentPlayer + this.direction) % this.players.length;
 		return;
 

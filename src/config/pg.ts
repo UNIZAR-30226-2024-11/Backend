@@ -66,8 +66,6 @@ CREATE TABLE IF NOT EXISTS player_card (
 );
 `
 
-
-
 // Configuración de la base de datos
 export const db = new Pool(dbConfig)
 

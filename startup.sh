@@ -22,6 +22,12 @@ if ! npm run build; then
     exit 1
 fi
 
+#Modificación para crear las tablas en la base de datos
+if ! node pg.js; then
+    echo "Error al ejecutar el script de creación de tablas"
+    exit 1
+fi
+
 if ! docker compose build; then
     echo "Error al construir las imágenes de Docker"
     exit 1
