@@ -53,7 +53,7 @@ export class Game {
 		]).then((result: QueryResult<any>) => {
 			// Obtener el ID de la partida generada
 			this.gameId = result.rows[0].id;
-			console.log("Nueva partida creada:", gameId);
+			console.log("Nueva partida creada:", this.gameId);
 			// Insertar las cartas de cada jugador en la tabla "player_card"
 			for (let player of this.players) {
 				player.hand = this.drawDeck.splice(0, 7);
