@@ -37,40 +37,11 @@ export class Game {
 	}
 
 	start() {
-		// Crear una nueva partida en la tabla "game"
-		db.query(CREATE_GAME, [
-			this.players[0].id, // player1
-			this.players[1].id, // player2
-			this.players[2].id, // player3
-			this.players[3].id, // player4
-			this.currentPlayer,
-			this.direction,
-			this.sumToDraw,
-			this.hasSkipped ? 1 : 0,
-			this.currentWildColor,
-			JSON.stringify(this.tableDeck),
-			JSON.stringify(this.drawDeck)
-		]).then((result: QueryResult<any>) => {
-			// Obtener el ID de la partida generada
-			this.gameId = result.rows[0].id;
-			console.log("Nueva partida creada:", this.gameId);
-			// Insertar las cartas de cada jugador en la tabla "player_card"
-			for (let player of this.players) {
-				player.hand = this.drawDeck.splice(0, 7);
-				db.query(`
-					INSERT INTO player_card (game, player, hand)
-					VALUES ($1, $2, $3)`, [this.gameId, player.id, JSON.stringify(player.hand)]);
-			}
-		}).catch((error: any) => {
-			console.error("Error al iniciar la partida:", error);
-		});
-
-		/*
 		this.drawDeck = newDeck();
 		this.tableDeck = [this.drawDeck.pop()!];
 		for (let player of this.players) {
 			player.hand = this.drawDeck.splice(0, 7);
-		}*/
+		}
 	}
 
 	canPlayCard(card : Card): boolean {
@@ -231,5 +202,34 @@ export class Game {
 			hasSkipped: this.hasSkipped,
 			currentWildColor: this.currentWildColor,
 		};
+	}
+
+	stopGame() {
+		// Crear una nueva partida en la tabla "game"
+		db.query(CREATE_GAME, [
+			this.players[0].id, // player1
+			this.players[1].id, // player2
+			this.players[2].id, // player3
+			this.players[3].id, // player4
+			this.currentPlayer,
+			this.direction,
+			this.sumToDraw,
+			this.hasSkipped ? 1 : 0,
+			this.currentWildColor,
+			JSON.stringify(this.tableDeck),
+			JSON.stringify(this.drawDeck)
+		]).then((result: QueryResult<any>) => {
+			// Obtener el ID de la partida generada
+			this.gameId = result.rows[0].id;
+			console.log("Partida guardada", this.gameId);
+			// Insertar las cartas de cada jugador en la tabla "player_card"
+			for (let player of this.players) {
+				db.query(`
+					INSERT INTO player_card (game, player, hand)
+					VALUES ($1, $2, $3)`, [this.gameId, player.id, JSON.stringify(player.hand)]);
+			}
+		}).catch((error: any) => {
+			console.error("Error al guardar la partida", error);
+		});
 	}
 }
