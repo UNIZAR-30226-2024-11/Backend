@@ -1,4 +1,4 @@
-import { Card, CardAction, CardColor, newDeck, shuffleDeck } from "./Cards";
+import { Card, CardAction, CardColor, newDeck } from "./Cards";
 import { db } from "../config";
 import { QueryResult } from "pg";
 

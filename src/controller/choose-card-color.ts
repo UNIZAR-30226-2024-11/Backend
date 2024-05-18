@@ -1,5 +1,7 @@
+import { Socket } from "socket.io";
+
 import { CardColor, Game } from "../game";
-import { Server, Socket } from "socket.io";
+import { io } from "../config/server";
 
 /**
  * Solicitud de elección de color de carta
@@ -16,7 +18,6 @@ type ErrorResponse = {
 };
 
 export const chooseCardColorController = (
-  io: Server,
   socket: Socket,
   data: ChooseCardColorRequest,
   state: {

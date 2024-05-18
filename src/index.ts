@@ -1,12 +1,15 @@
-/**
- * @file Punto de entrada de la aplicación
- */
+import dotenv from "dotenv";
+
+const env = dotenv.config();
+
+env
+  ? console.log("[INFO] .env file loaded: ", env.parsed)
+  : console.error("[ERROR] .env file not loaded");
 
 import { server } from "./config";
 
 const PORT = Number(process.env.PORT) || 8000;
 
-// Lanza el servidor
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`[INFO] Server is running on port ${PORT}`);
 });

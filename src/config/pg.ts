@@ -13,8 +13,6 @@ const dbConfig = {
   password: process.env.DB_PASSWD,
 };
 
-// TODO: Quizas moverlo a un fichero cuando se vuelva grande
-
 /*
 Descripción de las tablas:
 user -> usuario de la aplicación
@@ -65,16 +63,14 @@ CREATE TABLE IF NOT EXISTS player_card (
 );
 `;
 
-// Configuración de la base de datos
 export const db = new Pool(dbConfig);
 
 db.query(tables)
   .then(() => {
-    console.log(`Connected to database ${dbConfig.host}:${dbConfig.port}`);
+    console.log(
+      `[INFO] Connected to database ${dbConfig.host}:${dbConfig.port}`,
+    );
   })
-  .catch((err) => {
-    console.error(err);
+  .catch((err: Error) => {
+    console.error("[ERROR] Could not connect to database: ", err.message);
   });
-
-//console.log("[INFO]: LA CONEXIÓN CON LA BD ESTÁ DESHABILITADA")
-//export const db = new Pool()

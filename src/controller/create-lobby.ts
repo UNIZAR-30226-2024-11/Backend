@@ -1,6 +1,7 @@
 import { Lobby } from "../lobbies/Lobby";
 import { LobbyManager } from "../lobbies/LobbyManager";
-import { Server, Socket } from "socket.io";
+
+import { Socket } from "socket.io";
 
 /**
  * Respuesta de creación de una sala nueva
@@ -17,7 +18,6 @@ type ErrorResponse = {
 };
 
 export const createLobbyController = (
-  io: Server,
   socket: Socket,
   data: {},
   state: {

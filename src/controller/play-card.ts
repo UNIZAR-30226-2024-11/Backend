@@ -1,6 +1,8 @@
+import { Socket } from "socket.io";
+
 import { Game, Card } from "../game";
 import { Lobby } from "../lobbies/Lobby";
-import { Server, Socket } from "socket.io";
+import { io } from "../config/server";
 
 /**
  * Solicitud de jugar una carta
@@ -17,7 +19,6 @@ type ErrorResponse = {
 };
 
 export const playCardController = (
-  io: Server,
   socket: Socket,
   data: PlayCardRequest,
   state: {

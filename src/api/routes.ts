@@ -4,6 +4,7 @@
  */
 
 import { Router } from "express";
+
 import { loginController, registerController } from "../controller";
 
 export const router = Router();

@@ -1,7 +1,13 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
-  extends: ["plugin:prettier/recommended", "prettier", "eslint:recommended"],
-  plugins: ["@typescript-eslint"],
+  extends: [
+    "plugin:prettier/recommended",
+    "prettier",
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+  ],
+  plugins: ["@typescript-eslint", "prettier", "import", "unused-imports"],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "",
@@ -20,5 +26,13 @@ module.exports = {
     "space-in-parens": "warn",
     "no-multiple-empty-lines": "warn",
     "prefer-const": "warn",
+    "unused-imports/no-unused-imports": "error",
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".ts"],
+      },
+    },
   },
 };

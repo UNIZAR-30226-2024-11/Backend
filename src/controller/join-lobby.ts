@@ -1,6 +1,8 @@
+import { Socket } from "socket.io";
+
 import { Lobby } from "../lobbies/Lobby";
 import { LobbyManager } from "../lobbies/LobbyManager";
-import { Server, Socket } from "socket.io";
+import { io } from "../config/server";
 
 /**
  * Solicitud de unirse a una sala
@@ -25,7 +27,6 @@ type ErrorResponse = {
 };
 
 export const joinLobbyController = (
-  io: Server,
   socket: Socket,
   data: JoinLobbyRequest,
   state: {

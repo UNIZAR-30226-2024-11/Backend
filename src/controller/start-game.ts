@@ -1,6 +1,8 @@
+import { Socket } from "socket.io";
+
 import { Game } from "../game";
 import { Lobby } from "../lobbies/Lobby";
-import { Server, Socket } from "socket.io";
+import { io } from "../config/server";
 
 /**
  * Respuesta de error controlado
@@ -10,7 +12,6 @@ type ErrorResponse = {
 };
 
 export const startGameController = (
-  io: Server,
   socket: Socket,
   data: {},
   state: {

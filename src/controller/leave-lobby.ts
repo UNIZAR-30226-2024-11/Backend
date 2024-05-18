@@ -1,12 +1,13 @@
+import { Socket } from "socket.io";
+
 import { Lobby } from "../lobbies/Lobby";
-import { Server, Socket } from "socket.io";
+import { io } from "../config/server";
 
 type ErrorResponse = {
   error: string;
 };
 
 export const leaveLobbyController = (
-  io: Server,
   socket: Socket,
   data: {},
   state: {
