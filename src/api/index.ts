@@ -1,2 +1,2 @@
-export { events } from "./events"
-export { router } from "./routes"
+export { events } from "./events";
+export { router } from "./routes";

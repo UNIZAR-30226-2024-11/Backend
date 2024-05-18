@@ -3,11 +3,11 @@
  * @author Dorian Wozniak <817570@unizar.es>
  */
 
-import { Router } from "express"
-import { loginController, registerController } from "../controller"
+import { Router } from "express";
+import { loginController, registerController } from "../controller";
 
-export const router = Router()
+export const router = Router();
 
-router.route("/login").post(loginController)
+router.route("/login").post(loginController);
 
-router.route("/register").post(registerController)
+router.route("/register").post(registerController);

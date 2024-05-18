@@ -1,4 +1,4 @@
 export interface Lobby {
-  id?: number
-  code?: string
+  id?: number;
+  code?: string;
 }

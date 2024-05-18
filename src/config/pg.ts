@@ -3,7 +3,7 @@
  * @author Dorian Wozniak <817570@unizar.es>
  */
 
-import { Pool } from "pg"
+import { Pool } from "pg";
 
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -11,7 +11,7 @@ const dbConfig = {
   user: process.env.DB_USER,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWD,
-}
+};
 
 // TODO: Quizas moverlo a un fichero cuando se vuelva grande
 
@@ -63,18 +63,18 @@ CREATE TABLE IF NOT EXISTS player_card (
   FOREIGN KEY (game) REFERENCES game(id),
   FOREIGN KEY (player) REFERENCES player(id)
 );
-`
+`;
 
 // Configuración de la base de datos
-export const db = new Pool(dbConfig)
+export const db = new Pool(dbConfig);
 
 db.query(tables)
   .then(() => {
-    console.log(`Connected to database ${dbConfig.host}:${dbConfig.port}`)
+    console.log(`Connected to database ${dbConfig.host}:${dbConfig.port}`);
   })
   .catch((err) => {
-    console.error(err)
-  })
+    console.error(err);
+  });
 
 //console.log("[INFO]: LA CONEXIÓN CON LA BD ESTÁ DESHABILITADA")
 //export const db = new Pool()

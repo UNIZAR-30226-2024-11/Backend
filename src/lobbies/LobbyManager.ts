@@ -1,10 +1,10 @@
-import { Lobby } from "./Lobby"
+import { Lobby } from "./Lobby";
 
 /**
  * Clase gestora de salas de juego
  */
 export class LobbyManager {
-  private static lobbies = new Map<string, Lobby>()
+  private static lobbies = new Map<string, Lobby>();
 
   /**
    * Crea una nueva sala de juego
@@ -12,12 +12,12 @@ export class LobbyManager {
    * @returns ID de sala
    */
   public static createLobby(): Lobby {
-    const code = this.generateCode()
-    const lobby = new Lobby(code)
+    const code = this.generateCode();
+    const lobby = new Lobby(code);
 
-    this.lobbies.set(code, lobby)
+    this.lobbies.set(code, lobby);
 
-    return lobby
+    return lobby;
   }
 
   /**
@@ -26,7 +26,7 @@ export class LobbyManager {
    * @param id ID de sala
    */
   public static deleteLobby(id: string) {
-    this.lobbies.delete(id)
+    this.lobbies.delete(id);
   }
 
   /**
@@ -36,15 +36,15 @@ export class LobbyManager {
    * @param id ID de sala
    */
   public static joinLobby(user: number, id: string): Lobby | null {
-    const lobby = this.lobbies.get(id)
+    const lobby = this.lobbies.get(id);
 
     if (lobby) {
-      lobby.join(user)
+      lobby.join(user);
     } else {
-      throw new Error("No se ha encontrado la sala de juego")
+      throw new Error("No se ha encontrado la sala de juego");
     }
 
-    return lobby
+    return lobby;
   }
 
   /**
@@ -54,16 +54,16 @@ export class LobbyManager {
    * @param id
    */
   public static leaveLobby(user: number, id: string) {
-    const lobby = this.lobbies.get(id)
+    const lobby = this.lobbies.get(id);
 
     if (lobby) {
-      lobby.leave(user)
+      lobby.leave(user);
 
       if (lobby.users.length === 0) {
-        this.deleteLobby(id)
+        this.deleteLobby(id);
       }
     } else {
-      throw new Error("No se ha encontrado la sala de juego")
+      throw new Error("No se ha encontrado la sala de juego");
     }
   }
 
@@ -78,16 +78,16 @@ export class LobbyManager {
    * @returns {string} Código de sala de juego
    */
   private static generateCode(): string {
-    const LENGTH = 6
-    const ALPHABET = "abcdefghijklmnopqrstuvwxyz1234567890"
-    let code = ""
+    const LENGTH = 6;
+    const ALPHABET = "abcdefghijklmnopqrstuvwxyz1234567890";
+    let code = "";
 
     do {
       for (let i = 0; i < LENGTH; i++) {
-        code += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length))
+        code += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
       }
-    } while (this.lobbies.has(code))
+    } while (this.lobbies.has(code));
 
-    return code
+    return code;
   }
 }

@@ -4,10 +4,10 @@
  */
 
 // TODO: Usar HTTPS en vez de HTTP
-import { createServer } from "http"
+import { createServer } from "http";
 
-import { app } from "./express"
+import { app } from "./express";
 
-const server = createServer(app)
+const server = createServer(app);
 
-export { server }
+export { server };

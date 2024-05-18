@@ -1,2 +1,2 @@
-export * from "./Cards"
-export {Game} from "./Game"
+export * from "./Cards";
+export { Game } from "./Game";
