@@ -16,9 +16,10 @@ import {
 } from "../controller";
 import { Lobby } from "../lobbies/Lobby";
 import { io } from "../config/server";
+import { logger } from "../config";
 
 io.on("connect", (socket: Socket) => {
-  console.log("Conexión establecida, ID:", socket.id);
+  logger.info(`New socket connected, ID: ${socket.id}`);
 
   let state: {
     lobby: Lobby | null;
@@ -57,6 +58,6 @@ io.on("connect", (socket: Socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("Conexión perdida con el cliente", socket.id);
+    logger.info(`Socket disconnected, ID: ${socket.id}`);
   });
 });

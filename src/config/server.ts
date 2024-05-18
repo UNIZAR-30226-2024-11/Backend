@@ -8,7 +8,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-import { router } from "../api/routes";
+import { router } from "../api";
 import { bodyParserErrorHandler } from "../middleware/bodyParserErrorHandler";
 
 // Express

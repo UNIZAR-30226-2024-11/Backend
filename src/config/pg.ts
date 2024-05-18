@@ -4,6 +4,7 @@
  */
 
 import { Pool } from "pg";
+import { logger } from "./logger";
 
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -67,10 +68,10 @@ export const db = new Pool(dbConfig);
 
 db.query(tables)
   .then(() => {
-    console.log(
-      `[INFO] Connected to database ${dbConfig.host}:${dbConfig.port}`,
-    );
+    logger.info(`Connected to database ${dbConfig.host}:${dbConfig.port}`);
   })
   .catch((err: Error) => {
-    console.error("[ERROR] Could not connect to database: ", err.message);
+    logger.error(
+      `Could not connect to database ${process.env.DB_HOST}:${process.env.DB_PORT}`,
+    );
   });
