@@ -7,13 +7,17 @@ import type { Socket } from "socket.io";
 
 import { Game } from "../game";
 import {
-  createLobbyController,
-  joinLobbyController,
-  leaveLobbyController,
   playCardController,
   chooseCardColorController,
   startGameController,
 } from "../controller";
+
+import {
+  createLobbyController,
+  joinLobbyController,
+  leaveLobbyController,
+} from "../lobbies";
+
 import { Lobby } from "../lobbies/Lobby";
 import { io } from "../config/server";
 import { logger } from "../config";

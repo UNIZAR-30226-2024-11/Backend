@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 
-import { Lobby } from "../lobbies/Lobby";
+import { Lobby } from "./Lobby";
 import { io } from "../config/server";
 
 type ErrorResponse = {

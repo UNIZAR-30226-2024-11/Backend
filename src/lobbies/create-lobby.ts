@@ -1,5 +1,5 @@
-import { Lobby } from "../lobbies/Lobby";
-import { LobbyManager } from "../lobbies/LobbyManager";
+import { Lobby } from "./Lobby";
+import { LobbyManager } from "./LobbyManager";
 
 import { Socket } from "socket.io";
 
