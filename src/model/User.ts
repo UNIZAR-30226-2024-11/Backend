@@ -22,12 +22,21 @@ const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
   FROM users
   WHERE username = $1 OR email = $2`;
 
+  const FIND_USER_DATA_QUERY = `
+  SELECT username, games_won, coins
+  FROM users
+  WHERE id = $1`;
+
 /** User representa un usuario registrado dentro del sistema. */
 export interface User {
   id?: number;
   username?: string;
   email?: string;
   password?: string;
+  avatar?: string;
+  level?: number;
+  games_won?: number;
+  coins?: number;
 }
 
 /**
@@ -72,4 +81,15 @@ export const findUsersByUsernameOrEmail = async (
   ]);
 
   return res.rows;
+};
+
+/**
+ * Devuelve las monedas y las partidas ganadas de un jugador
+ *
+ * @param id Id de usuario
+ * @returns Monedas y partidas ganadas
+ */
+export const findUserDataById = async (id: number) => {
+  const res = await db.query<User>(FIND_USER_DATA_QUERY, [id]);
+  if (res.rows.length > 0) return res.rows[0];
 };
