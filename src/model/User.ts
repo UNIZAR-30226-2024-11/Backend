@@ -93,7 +93,7 @@ export const findUsersByUsernameOrEmail = async (
 export const findUserDataById = async (id: number) => {
   const res = await db.query(FIND_USER_DATA_BY_ID_QUERY, [id]);
   if (res.rows.length > 0) {
-    return res.rows[0];
+    return res.rows[0] as User;
   }
   return null;
 };
