@@ -1,26 +1,21 @@
-import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { createUser, findUsersByUsernameOrEmail, findUserDataById } from "../model"; // Asegúrate de que findUserDataById esté importado
+import { findUserDataById } from "../model"; // Asegúrate de que la ruta sea correcta
 
-/**
- * Interfaz para la solicitud autenticada que incluye el ID del usuario.
- */
-interface AuthenticatedRequest extends Request {
-  user?: { id: number };
+interface UserDataRequest extends Request {
+  params: {
+    id: string; // Los parámetros de la URL son cadenas por defecto
+  };
 }
 
-/**
- * Tipo de respuesta para la solicitud de datos de usuario.
- */
-type UserDataResponse = Response<{ error: string } | any>; // Ajusta el tipo de respuesta según los datos que vayas a enviar
+type UserDataResponse = Response<{ error: string } | any>; // Ajusta el tipo según tu respuesta esperada
 
 export const userDataController = async (
-  req: AuthenticatedRequest,
+  req: UserDataRequest,
   res: UserDataResponse,
 ) => {
-  const userId = req.user?.id; // Usa el operador de encadenamiento opcional para evitar errores si user es undefined
-  if (!userId) {
-    res.status(401).json({ error: "No autenticado" });
+  const userId = parseInt(req.params.id, 10); // Convierte el ID a un número
+  if (isNaN(userId)) {
+    res.status(400).json({ error: "ID de usuario no válido" });
     return;
   }
 
