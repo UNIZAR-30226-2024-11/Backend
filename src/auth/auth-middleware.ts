@@ -1,9 +1,9 @@
-// TODO
-// Busca el token JWT. Si lo encuentra, continúa con la petición.
-// Si no lo encuentra, responde con un error 401 Unauthorized.
+// src/auth/auth-middleware.ts
 
+import { Router, Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+
+const router = Router();
 
 interface AuthenticatedRequest extends Request {
   user?: { id: number };
@@ -25,5 +25,5 @@ const authMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunc
   }
 };
 
-// Usa el middleware de autenticación en las rutas que necesiten autenticación
-router.use(authMiddleware);
+// Exporta el router si es necesario
+export { router, authMiddleware };

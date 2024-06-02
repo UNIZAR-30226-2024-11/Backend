@@ -1,23 +1,24 @@
 import bcrypt from "bcrypt";
-
 import { Request, Response } from "express";
-import { createUser, findUsersByUsernameOrEmail } from "../model";
+import { createUser, findUsersByUsernameOrEmail, findUserDataById } from "../model"; // Asegúrate de que findUserDataById esté importado
 
 /**
- * Solicitud de inicio de sesión
+ * Interfaz para la solicitud autenticada que incluye el ID del usuario.
  */
-type userDataRequest = Request<{}, {}, { email: string; password: string }>;
+interface AuthenticatedRequest extends Request {
+  user?: { id: number };
+}
 
 /**
- * Respuesta de inicio de sesión
+ * Tipo de respuesta para la solicitud de datos de usuario.
  */
-type userDataResponse = Response<{ error: string } | { token: string }>;
+type UserDataResponse = Response<{ error: string } | any>; // Ajusta el tipo de respuesta según los datos que vayas a enviar
 
 export const userDataController = async (
-    req: userDataRequest,
-    res: userDataResponse,
-  ) => {
-    const userId = req.user.id; // Suponiendo que tienes un middleware de autenticación que añade el ID del usuario al objeto de solicitud.
+  req: AuthenticatedRequest,
+  res: UserDataResponse,
+) => {
+  const userId = req.user?.id; // Usa el operador de encadenamiento opcional para evitar errores si user es undefined
   if (!userId) {
     res.status(401).json({ error: "No autenticado" });
     return;
