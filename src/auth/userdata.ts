@@ -48,7 +48,7 @@ export const userDataController = async (
       return;
     }
 
-    res.status(200).json({ id: user.id, username: user.username, email: user.email, avatar: user.avatar, level: user.level, games_won: user.games_won, coins: 100 });
+    res.status(200).json({ id: user.id, username: user.username, email: user.email, avatar: user.avatar, level: user.level, games_won: user.games_won, coins: user.coins });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
