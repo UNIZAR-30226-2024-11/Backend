@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { findUserDataById } from "../model"; // Asegúrate de que la ruta sea correcta
+import { findUserDataByEmail, findUserDataById } from "../model"; // Asegúrate de que la ruta sea correcta
 
 /**
  * Solicitud de datos de usuario
@@ -24,7 +24,7 @@ export const userDataController = async (
   }
   try {
     const { email } = req.body;
-    const userData = await findUserDataById(email);
+    const userData = await findUserDataByEmail(email);
     if (!userData) {
       res.status(404).json({ error: "Usuario no encontrado" });
       return;
