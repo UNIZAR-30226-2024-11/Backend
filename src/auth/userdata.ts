@@ -36,9 +36,15 @@ export const userDataController = async (
       return;
     }
 
-    // Asegura que `user.email` es un string
-    if (typeof user.email !== 'string') {
-      res.status(500).json({ error: "email del usuario no válido" });
+    // Asegura que sean strings
+    if (typeof user.email !== 'string' || typeof user.username !== 'string' || typeof user.avatar !== 'string') {
+      res.status(500).json({ error: "parametros string del usuario no válidos" });
+      return;
+    }
+
+    // Asegura que sean números
+    if (typeof user.level !== 'number' || typeof user.games_won !== 'number' || typeof user.coins !== 'number' || typeof user.id !== 'number') {
+      res.status(500).json({ error: "parametros numéricos del usuario no válidos" });
       return;
     }
 
