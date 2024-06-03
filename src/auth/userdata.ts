@@ -23,7 +23,7 @@ export const userDataController = async (
     return;
   }
   try {
-    const { id } = req.body.id;
+    const { id } = req.body;
     const userData = await findUserDataById(id);
     if (!userData) {
       res.status(404).json({ error: "Usuario no encontrado" });
