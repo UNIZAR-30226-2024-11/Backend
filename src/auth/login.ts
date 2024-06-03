@@ -17,7 +17,7 @@ type LoginRequest = Request<{}, {}, { email: string; password: string }>;
 /**
  * Respuesta de inicio de sesión
  */
-type LoginResponse = Response<{ error: string } | { token: string }>;
+type LoginResponse = Response<{ error: string } | { token: string; id: number }>;
 
 export const loginController = async (
   req: LoginRequest,
