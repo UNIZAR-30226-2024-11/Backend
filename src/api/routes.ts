@@ -15,7 +15,7 @@ router.route("/login").post(loginController);
 
 router.route("/register").post(registerController);
 
-router.route("/userdata").post(userDataController);
+router.route("/userdata").get(userDataController);
 
 router.route("/userdata/:email/updatecoins").put(updateCoinsController);
 
