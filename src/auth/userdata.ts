@@ -30,6 +30,12 @@ export const userDataController = async (
       return;
     }
 
+    // Asegura que `user.email` es un string
+    if (typeof user.id !== 'string') {
+      res.status(500).json({ error: "email del usuario no válido" });
+      return;
+    }
+
     res.status(200).json({ email: user.email });
   } catch (err) {
     console.error(err);
