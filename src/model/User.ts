@@ -25,7 +25,7 @@ const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
   const FIND_USER_DATA_BY_ID_QUERY = `
   SELECT DISTINCT *
   FROM users
-  WHERE email = $1
+  WHERE id = $1
 `;
 
 const UPDATE_USER_COINS_QUERY = `
@@ -103,7 +103,6 @@ export const findUserDataById = async (id: number) => {
   if (res.rows.length > 0) {
     return res.rows[0];
   }
-  return null;
 };
 
 export const updateUserCoins = async (id: number, coins: number) => {
