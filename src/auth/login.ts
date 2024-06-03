@@ -43,9 +43,15 @@ export const loginController = async (
       return;
     }
 
+    // Asegura que `user.id` es un número
+    if (typeof user.id !== 'number') {
+      res.status(500).json({ error: "ID del usuario no válido" });
+      return;
+    }
+
     // Firma un token usando la ID de usuario
     const token = sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env");
-    res.status(200).json({ token, id:user.id });
+    res.status(200).json({ token, id: user.id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Login: Error interno" });
