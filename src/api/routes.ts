@@ -15,8 +15,8 @@ router.route("/login").post(loginController);
 
 router.route("/register").post(registerController);
 
-router.route("/userdata/:id").get(userDataController);
+router.route("/userdata").post(userDataController);
 
-router.route("/userdata/:id/updatecoins").put(updateCoinsController);
+router.route("/userdata/:email/updatecoins").put(updateCoinsController);
 
 // TODO: Añadir rutas usuario

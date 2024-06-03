@@ -22,10 +22,10 @@ const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
   FROM users
   WHERE username = $1 OR email = $2`;
 
-  const FIND_USER_DATA_BY_ID_QUERY = `
+  const FIND_USER_DATA_BY_EMAIL_QUERY = `
   SELECT id, username, email, games_won, coins
   FROM users
-  WHERE id = $1
+  WHERE email = $1
 `;
 
 const UPDATE_USER_COINS_QUERY = `
@@ -98,8 +98,8 @@ export const findUsersByUsernameOrEmail = async (
  * @param id Id de usuario
  * @returns Monedas y partidas ganadas
  */
-export const findUserDataById = async (id: number) => {
-  const res = await db.query(FIND_USER_DATA_BY_ID_QUERY, [id]);
+export const findUserDataByEmail = async (email: string) => {
+  const res = await db.query<User>(FIND_USER_DATA_BY_EMAIL_QUERY, [email]);
   if (res.rows.length > 0) {
     return res.rows[0] as User;
   }
