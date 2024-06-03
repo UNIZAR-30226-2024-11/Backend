@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
 import { updateUserCoins} from "../model";
-
+import { UserData } from "../model"; // Import the UserData type from the appropriate module
 interface UpdateCoinsRequest extends Request {
-  params: {
-    id: string; // Los parámetros de la URL son cadenas por defecto
-  };
-  body: {
-    coins: number; // El número de monedas a actualizar
-  };
+    params: {
+        id: string; // Los parámetros de la URL son cadenas por defecto
+    };
+    body: {
+        coins: number; // El número de monedas a actualizar
+    };
 }
-
 type UpdateCoinsResponse = Response<{ error: string } | UserData>;
 
 export const updateCoinsController = async (
