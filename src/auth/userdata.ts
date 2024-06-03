@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { findUserDataByEmail, findUserDataById } from "../model"; // Asegúrate de que la ruta sea correcta
+import { findUserDataByEmail } from "../model"; // Asegúrate de que la ruta sea correcta
 
 /**
  * Solicitud de datos de usuario
