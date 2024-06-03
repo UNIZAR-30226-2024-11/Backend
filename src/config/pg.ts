@@ -27,7 +27,11 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  avatar TEXT DEFAULT 'default.png',
+  level INT DEFAULT 1,
+  games_won INT DEFAULT 0,
+  coins INT DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS player (
