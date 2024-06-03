@@ -5,8 +5,9 @@
 
 import { Router } from "express";
 
-import { loginController, registerController } from "../auth";
+import { loginController, registerController} from "../auth";
 import { userDataController } from "../auth/userdata";
+import { updateCoinsController } from "../auth/updatecoins";
 
 export const router = Router();
 
@@ -15,5 +16,7 @@ router.route("/login").post(loginController);
 router.route("/register").post(registerController);
 
 router.route("/users/:id").get(userDataController);
+
+router.route("/users/:id/coins").put(updateCoinsController);
 
 // TODO: Añadir rutas usuario

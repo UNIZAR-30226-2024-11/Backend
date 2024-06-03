@@ -28,6 +28,14 @@ const FIND_BY_USERNAME_OR_EMAIL_QUERY = `
   WHERE id = $1
 `;
 
+const UPDATE_USER_COINS_QUERY = `
+  UPDATE users
+  SET coins = $1
+  WHERE id = $2
+`;
+
+
+
 /** User representa un usuario registrado dentro del sistema. */
 export interface User {
   id?: number;
@@ -96,4 +104,12 @@ export const findUserDataById = async (id: number) => {
     return res.rows[0] as User;
   }
   return null;
+};
+
+export const updateUserCoins = async (id: number, coins: number) => {
+  const res = await db.query(UPDATE_USER_COINS_QUERY, [coins, id]);
+  if (res.rows.length > 0) {
+    return res.rows[0]; // Devuelve el objeto actualizado
+  }
+  return null; // Devuelve null si no se encuentra el usuario
 };

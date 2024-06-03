@@ -9,6 +9,12 @@ interface UserDataRequest extends Request {
 
 type UserDataResponse = Response<{ error: string } | any>; // Ajusta el tipo según tu respuesta esperada
 
+/**
+ *
+ * @param req
+ * @param res
+ * @returns
+ */
 export const userDataController = async (
   req: UserDataRequest,
   res: UserDataResponse,
