@@ -12,7 +12,7 @@ interface UserDataRequest extends Request {
   };
 }
 
-type UserDataResponse = Response<{ error: string } | { email: string }>;
+type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string; avatar: string; level: number; games_won: number; coins: number }>;
 
 /**
  *
@@ -42,7 +42,7 @@ export const userDataController = async (
       return;
     }
 
-    res.status(200).json({ email: user.email });
+    res.status(200).json({ id: user.id, username: user.username, email: user.email, avatar: user.avatar, level: user.level, games_won: user.games_won, coins: user.coins });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
