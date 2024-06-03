@@ -12,7 +12,8 @@ interface UserDataRequest extends Request {
   };
 }
 
-type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string; avatar: string; level: number; games_won: number; coins: number }>;
+//type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string; avatar: string; level: number; games_won: number; coins: number }>;
+type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string }>;
 
 /**
  *
@@ -37,18 +38,18 @@ export const userDataController = async (
     }
 
     // Asegura que sean strings
-    if (typeof user.email !== 'string' || typeof user.username !== 'string' || typeof user.avatar !== 'string') {
+    if (typeof user.email !== 'string' || typeof user.username !== 'string') {
       res.status(500).json({ error: "parametros string del usuario no válidos" });
       return;
     }
 
     // Asegura que sean números
-    if (typeof user.level !== 'number' || typeof user.games_won !== 'number' || typeof user.coins !== 'number' || typeof user.id !== 'number') {
+    if (typeof user.id !== 'number') {
       res.status(500).json({ error: "parametros numéricos del usuario no válidos" });
       return;
     }
 
-    res.status(200).json({ id: user.id, username: user.username, email: user.email, avatar: user.avatar, level: user.level, games_won: user.games_won, coins: user.coins });
+    res.status(200).json({ id: user.id, username: user.username, email: user.email });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
