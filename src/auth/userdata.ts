@@ -6,7 +6,7 @@ import { findUserDataById, User } from "../model"; // Asegúrate de que la ruta 
  */
 type UserDataRequest = Request<{}, {}, { id: number }>;
 
-type UserDataResponse = Response<{ error: string } | User>;
+type UserDataResponse = Response<{ error: string } | {email: string}>;
 
 /**
  *
@@ -24,13 +24,13 @@ export const userDataController = async (
   }
   try {
     const { id } = req.body;
-    const userData = await findUserDataById(id);
-    if (!userData) {
+    const user = await findUserDataById(id);
+    if (!user) {
       res.status(404).json({ error: "Usuario no encontrado" });
       return;
     }
 
-    res.status(200).json(userData);
+    res.status(200).json(user.email);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
