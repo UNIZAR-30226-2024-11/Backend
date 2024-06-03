@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { updateUserCoins, UserData } from "../model"; // Asegúrate de que la ruta sea correcta
+import { updateUserCoins} from "../model";
 
 interface UpdateCoinsRequest extends Request {
   params: {
