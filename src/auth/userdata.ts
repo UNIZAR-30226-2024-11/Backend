@@ -1,12 +1,19 @@
 import { Request, Response } from "express";
-import { findUserDataByEmail } from "../model"; // Asegúrate de que la ruta sea correcta
+import { findUserDataById, User } from "../model"; // Asegúrate de que la ruta sea correcta
 
 /**
  * Solicitud de datos de usuario
  */
-type UserDataRequest = Request<{}, {}, { email: string }>;
+//type UserDataRequest = Request<{}, {}, { id: number }>;
 
-type UserDataResponse = Response<{ error: string } | any>;
+// Los parámetros de la URL son cadenas por defecto
+// Debe tener este formato
+interface UserDataRequest extends Request {
+  params: {
+    id: string; 
+  };
+}
+type UserDataResponse = Response<{ error: string } | User>;
 
 /**
  *
@@ -18,13 +25,14 @@ export const userDataController = async (
   req: UserDataRequest,
   res: UserDataResponse,
 ) => {
-  if (!req.body.email) {
-    res.status(400).json({ error: "Faltan parámetros" });
+  const userId = parseInt(req.params.id, 10); // Convierte el ID a un número
+
+  if (isNaN(userId)) {
+    res.status(400).json({ error: "ID de usuario no válido" });
     return;
   }
   try {
-    const { email } = req.body;
-    const userData = await findUserDataByEmail(email);
+    const userData = await findUserDataById(userId);
     if (!userData) {
       res.status(404).json({ error: "Usuario no encontrado" });
       return;
