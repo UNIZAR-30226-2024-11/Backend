@@ -45,7 +45,7 @@ export const loginController = async (
 
     // Firma un token usando la ID de usuario
     const token = sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env");
-    res.status(200).json({ token });
+    res.status(200).json({ token, id:user.id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Login: Error interno" });
