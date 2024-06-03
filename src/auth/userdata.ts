@@ -19,7 +19,7 @@ export const userDataController = async (
   res: UserDataResponse,
 ) => {
   if (!req.body.id) {
-    res.status(400).json({ error: "Faltan parámetro id" });
+    res.status(400).json({ error: "Falta parámetro id" });
     return;
   }
   try {
