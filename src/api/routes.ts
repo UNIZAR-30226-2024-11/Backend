@@ -13,6 +13,7 @@ import { sendFriendRequestController } from "../auth/sendfriendrequest";
 import { sendFriendResponseController } from "../auth/sendfriendresponse";
 import { declineFriendRequestController } from "../auth/declinefriendrequest";
 import { acceptFriendRequestController } from "../auth/acceptfriendrequest";
+import { friendsListController } from "../auth/friendslist";
 
 export const router = Router();
 
@@ -29,6 +30,8 @@ router.route("/friends/search/:email").get(searchPersonController);
 router.route("/friends/request").post(sendFriendRequestController);
 
 router.route("/friends/petition_list/:id").get(sendFriendResponseController);
+
+router.route("/friends/friends_list/:id").get(friendsListController);
 
 router.route("/friends/petition_list/decline").post(declineFriendRequestController);
 
