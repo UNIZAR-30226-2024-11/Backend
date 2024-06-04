@@ -218,7 +218,7 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  */
  export const sendFriendRequest = async (id: number, friendId: number) => {
   const user = await findUserDataById(id);
-  if (user) {
+  if (user && id !== friendId) {
     const res = await db.query<{ request_not_exists: boolean }>(CHECK_USER_FRIEND_REQUEST_QUERY, [user.username, friendId]);
     if (!res.rows[0].request_not_exists) {
       return false;
