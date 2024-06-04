@@ -12,7 +12,7 @@ interface SendFriendResponseRequest extends Request {
   };
 }
 
-type SendFriendResponseResponse = Response<{ error: string } | { friends_request: string[] }>;
+type SendFriendResponseResponse = Response<{ error: string } | { friends_requests: string[] }>;
 
 /**
  *
@@ -37,13 +37,13 @@ export const sendFriendResponseController = async (
     }
 
     // Asegura que sean strings
-    if (!Array.isArray(user.friends_request)) {
+    if (!Array.isArray(user.friends_requests) || user.friends_requests.some((request) => typeof request !== 'string'{
         res.status(500).json({ error: "parametros string del usuario no válidos" });
         return;
     }
 
 
-    res.status(200).json({ friends_request: user.friends_request});
+    res.status(200).json({ friends_requests: user.friends_requests});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
