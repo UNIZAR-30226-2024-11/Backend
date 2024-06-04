@@ -30,6 +30,10 @@ export const updateCoinsController = async (
     }
     else {
       const coinsleftquery = await updateUserCoins(userId, coins);
+      if (coinsleftquery == null) {
+        res.status(400).json({ error: "Error al actualizar las monedas" });
+        return;
+      }
       res.status(200).json({coinsleft: coinsleftquery}); // Devuelve el numero de monedas actualizado
     }
 
