@@ -1,6 +1,5 @@
-import { Request, Response } from 'express';
-import { findUserDataById, User } from '../models/User';
-import { addUserFriend } from '../model';
+import { Request, Response } from "express";
+import { findUserDataById, addUserFriend, User } from "../model";
 
 type AddFriendRequest = Request<{}, {}, { userId: string; friendId: string }>;
 type AddFriendResponse = Response<{ message: string }>;
