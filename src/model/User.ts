@@ -201,6 +201,7 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  * @returns true si la solicitud se envió correctamente, false en caso contrario
  */
  export const sendFriendRequest = async (id: number, friendId: number) => {
+
   await db.query<User>(ADD_USER_FRIEND_REQUEST_QUERY, [id, friendId]);
  }
 
@@ -211,6 +212,7 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  * @param friendId Id de amigo
  */
 export const addUserFriend = async (id: number, friendId: number) => {
-  await db.query<User>(ADD_USER_FRIEND_QUERY, [friendId, id]);
+  const user = await db.query<User>(FIND_USER_DATA_BY_ID_QUERY, [id]);
+  await db.query<User>(ADD_USER_FRIEND_QUERY, [friendId, user.rows[0].username]);
 }
 
