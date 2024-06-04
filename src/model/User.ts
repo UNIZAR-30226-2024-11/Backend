@@ -70,6 +70,16 @@ const REMOVE_USER_FRIEND_REQUEST_QUERY = `
   WHERE id = $2
 `;
 
+const CHECK_USER_FRIEND_REQUEST_QUERY = `
+  SELECT EXISTS (
+    SELECT 1
+    FROM users
+    WHERE id = $2
+    AND $1 <> ALL (friend_requests)
+  ) AS request_not_exists;
+`;
+
+
 
 /** User representa un usuario registrado dentro del sistema. */
 export interface User {
@@ -209,6 +219,10 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  export const sendFriendRequest = async (id: number, friendId: number) => {
   const user = await findUserDataById(id);
   if (user) {
+    const res = await db.query<{ request_not_exists: boolean }>(CHECK_USER_FRIEND_REQUEST_QUERY, [user.username, friendId]);
+    if (!res.rows[0].request_not_exists) {
+      return false;
+    }
     await db.query<User>(ADD_USER_FRIEND_REQUEST_QUERY, [user.username, friendId]);
   }
  }
