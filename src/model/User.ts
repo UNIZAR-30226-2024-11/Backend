@@ -105,20 +105,27 @@ export const findUserDataById = async (id: number) => {
   }
 };
 
+/**
+ * Actualiza las monedas de un usuario
+ *
+ * @param id Id de usuario
+ * @param coins Número de monedas a actualizar
+ * @returns Monedas actualizadas o null
+ */
 export const updateUserCoins = async (id: number, coins: number) => {
-  const res = await db.query<User>(UPDATE_USER_COINS_QUERY, [coins, id]);
-  if (res.rows.length > 0) {
-    return res.rows[0].coins; // Devuelve el objeto actualizado
-  }
-  return null; // Devuelve null si no se encuentra el usuario
+  await db.query<User>(UPDATE_USER_COINS_QUERY, [coins, id]);
+  const updatedUser = await findUserDataById(id);
+  return updatedUser?.coins ?? null;
 };
 
+/**
+ * Verifica si un usuario tiene suficientes monedas
+ *
+ * @param id Id de usuario
+ * @param coins Número de monedas requeridas
+ * @returns true si el usuario tiene suficientes monedas, false en caso contrario
+ */
 export const checkUserCoins = async (id: number, coins: number) => {
-  const res = await db.query<User>(FIND_USER_DATA_BY_ID_QUERY, [id]);
-  if (res.rows.length > 0) {
-    if (res.rows[0].coins >= coins) {
-      return true;
-    }
-  }
-  return false;
-}
+  const user = await findUserDataById(id);
+  return (user?.coins ?? 0) >= coins;
+};
