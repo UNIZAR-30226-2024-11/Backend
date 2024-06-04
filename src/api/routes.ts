@@ -8,6 +8,7 @@ import { Router } from "express";
 import { loginController, registerController} from "../auth";
 import { userDataController } from "../auth/userdata";
 import { updateCoinsController } from "../auth/updatecoins";
+import { searchPersonController } from "../auth/searchperson";
 
 export const router = Router();
 
@@ -18,5 +19,7 @@ router.route("/register").post(registerController);
 router.route("/userdata/:id").get(userDataController);
 
 router.route("/userdata/:id/updatecoins").get(updateCoinsController);
+
+router.route("/friends/search/:email").get(searchPersonController);
 
 // TODO: Añadir rutas usuario
