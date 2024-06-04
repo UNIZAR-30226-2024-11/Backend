@@ -64,6 +64,12 @@ const ADD_USER_FRIEND_REQUEST_QUERY = `
   WHERE id = $2
 `;
 
+const REMOVE_USER_FRIEND_REQUEST_QUERY = `
+  UPDATE users
+  SET friend_requests = array_remove(friend_requests, $1)
+  WHERE id = $2
+`;
+
 
 /** User representa un usuario registrado dentro del sistema. */
 export interface User {
@@ -214,6 +220,34 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  * @param friendId Id de amigo
  */
 export const addUserFriend = async (id: number, friendId: number) => {
-  await db.query<User>(ADD_USER_FRIEND_QUERY, [friendId, id]);
+  // Una relacion de amistad es bidireccional
+  // Que bonito ha quedado
+  // (Por eso se hace dos veces)
+
+  const user = await findUserDataById(id);
+  if (user) {
+    await db.query<User>(ADD_USER_FRIEND_QUERY, [user.username, friendId]);
+  }
+
+  const friend = await findUserDataById(friendId);
+  if (friend) {
+    await db.query<User>(ADD_USER_FRIEND_QUERY, [friend.username, id]);
+    await db.query<User>(REMOVE_USER_FRIEND_REQUEST_QUERY, [friend.username, id]);
+  }
 }
+
+/**
+ * Elimina una solicitud de amistad de un usuario
+ * 
+ * @param id Id de usuario
+ * @param friendId Id de amigo
+ * 
+ * @returns true si la solicitud se eliminó correctamente, false en caso contrario
+ */
+  export const removeFriendRequest = async (id: number, friendId: number) => {
+    const friend = await findUserDataById(friendId);
+    if (friend) {
+      await db.query<User>(REMOVE_USER_FRIEND_REQUEST_QUERY, [friend.username, id]);
+    }
+  }
 
