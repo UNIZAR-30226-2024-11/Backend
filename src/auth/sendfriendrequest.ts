@@ -14,7 +14,7 @@ type SendFriendRequestRequest = Request<{}, {}, { userId: number; friendId: numb
  */
 type SendFriendRequestResponse = Response<{ error: string } | { token: string; id: number }>;
 
-export const loginController = async (
+export const SendFriendRequestController = async (
   req: SendFriendRequestRequest,
   res: SendFriendRequestResponse,
 ) => {
@@ -36,6 +36,12 @@ export const loginController = async (
 
     const result = await sendFriendRequest(userId, friendId);
 
+    // Asegura que `user.id` es un número
+    if (typeof user.id !== 'number') {
+        res.status(500).json({ error: "ID del usuario no válido" });
+        return;
+    }
+    
     // Firma un token usando la ID de usuario
     const token = sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env");
     res.status(200).json({ token, id: user.id });
