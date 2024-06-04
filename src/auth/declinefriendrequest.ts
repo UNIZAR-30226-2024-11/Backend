@@ -29,12 +29,12 @@ export const declineFriendRequestController = async (
     const friend = await findUsersByUsernameOrEmail(username, '');
 
     // Verifica que los usuarios existan
-    if (!user || !friend) {
+    if (!user || !friend[0]) {
         res.status(401).json({ error: "Usuarios no encontrados" });
         return;
     }
 
-    const result = await removeFriendRequest(userId, friend.id);
+    const result = await removeFriendRequest(userId, friend[0].id);
 
     // Asegura que `user.id` es un número
     if (typeof user.id !== 'number') {
