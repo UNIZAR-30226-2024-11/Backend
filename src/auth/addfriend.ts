@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { findUserDataById, addUserFriend, User } from "../model";
 
-type AddFriendRequest = Request<{}, {}, { userId: string; friendId: string }>;
+type AddFriendRequest = Request<{}, {}, { userId: number; friendId: number }>;
 type AddFriendResponse = Response<{ message: string }>;
 
 export const addFriend = async (
@@ -11,6 +11,10 @@ export const addFriend = async (
     try {
         const { userId, friendId } = req.body;
 
+        // Comprobar que el tipo de userId y friendId sea igual a number
+        if (typeof userId !== 'number' || typeof friendId !== 'number') {
+            return res.status(400).json({ message: 'Invalid user id or friend id' });
+        }
         // Comprobar que existen los usuarios
         const user = await findUserDataById(userId);
         const friend = await findUserDataById(friendId);
