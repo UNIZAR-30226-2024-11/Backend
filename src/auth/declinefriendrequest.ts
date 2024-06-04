@@ -34,13 +34,14 @@ export const declineFriendRequestController = async (
         return;
     }
 
-    const result = await removeFriendRequest(userId, friend[0].id);
-
     // Asegura que `user.id` es un número
-    if (typeof user.id !== 'number') {
+    if (typeof user.id !== 'number' || typeof friend[0].id !== 'number') {
         res.status(500).json({ error: "ID del usuario no válido" });
         return;
+
     }
+    
+    const result = await removeFriendRequest(user.id, friend[0].id);
     
     // Firma un token usando la ID de usuario
     const token = sign({ id: user.id }, "token-secreto-que-deberia-ir-en-env");
