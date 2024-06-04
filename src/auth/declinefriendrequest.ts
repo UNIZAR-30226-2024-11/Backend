@@ -24,9 +24,9 @@ export const declineFriendRequestController = async (
   }
 
   try {
-    const { userId, friendUsername } = req.body;
+    const { userId, username } = req.body;
     const user = await findUserDataById(userId);
-    const friend = await findUsersByUsernameOrEmail(friendUsername, '');
+    const friend = await findUsersByUsernameOrEmail(username, '');
 
     // Verifica que los usuarios existan
     if (!user || !friend) {
