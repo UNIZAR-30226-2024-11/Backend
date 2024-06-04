@@ -12,7 +12,7 @@ interface searchPersonRequest extends Request {
   };
 }
 
-type searchPersonResponse = Response<{ error: string } | { id: number}>;
+type searchPersonResponse = Response<{ error: string } | { id: number; username: string}>;
 
 /**
  *
@@ -37,12 +37,12 @@ export const searchPersonController = async (
     }
 
     // Asegura que sea string
-    if (typeof user[0].id !== 'number') {
-      res.status(500).json({ error: "parametros ID del usuario no válidos" });
+    if (typeof user[0].id !== 'number' || typeof user[0].username !== 'string') {
+      res.status(500).json({ error: "parametros ID o nombre de usuario del usuario no válidos" });
       return;
     }
 
-    res.status(200).json({ id: user[0].id });
+    res.status(200).json({ id: user[0].id, username: user[0].username});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
