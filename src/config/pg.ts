@@ -23,6 +23,8 @@ player_card -> mano de cartas de un jugador en un partida
 */
 
 const tables = `
+DROP TABLE users;
+
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username TEXT NOT NULL UNIQUE,
@@ -33,9 +35,8 @@ CREATE TABLE IF NOT EXISTS users (
   games_won INT DEFAULT 0,
   games_played INT DEFAULT 0,
   coins INT DEFAULT 0,
-  friends INT[] DEFAULT '{}',
-  friend_requests INT[] DEFAULT '{}',
-  friend_requests_sent INT[] DEFAULT '{}'
+  friends TEXT[] DEFAULT '{}',
+  friend_requests TEXT[] DEFAULT '{}'
 );
 
 CREATE TABLE IF NOT EXISTS player (

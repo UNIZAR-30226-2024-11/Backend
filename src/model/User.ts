@@ -58,6 +58,12 @@ const ADD_USER_FRIEND_QUERY = `
   WHERE id = $2
 `;
 
+const ADD_USER_FRIEND_REQUEST_QUERY = `
+  UPDATE users
+  SET friend_requests = array_append(friend_requests, $1)
+  WHERE id = $2
+`;
+
 
 /** User representa un usuario registrado dentro del sistema. */
 export interface User {
@@ -70,9 +76,8 @@ export interface User {
   games_won?: number;
   games_played?: number;
   coins?: number;
-  friends?: number[];
-  friend_requests?: number[];
-  friend_requests_sent?: number[];
+  friends?: string[];
+  friend_requests?: string[];
 }
 
 /**
@@ -186,6 +191,18 @@ export const updateUserGamesWon = async (id: number, gamesWon: number) => {
 export const updateUserAvatar = async (id: number, avatar: string) => {
   await db.query<User>(UPDATE_USER_AVATAR_QUERY, [avatar, id]);
 }
+
+/**
+ * Envia una solicitud de amistad a un usuario
+ * 
+ * @param id Id de usuario
+ * @param friendId Id de amigo
+ * 
+ * @returns true si la solicitud se envió correctamente, false en caso contrario
+ */
+ export const sendFriendRequest = async (id: number, friendId: number) => {
+  await db.query<User>(ADD_USER_FRIEND_REQUEST_QUERY, [id, friendId]);
+ }
 
 /**
  * Añade un amigo a un usuario
