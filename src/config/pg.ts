@@ -23,7 +23,7 @@ player_card -> mano de cartas de un jugador en un partida
 */
 
 const tables = `
-DROP TABLE user CASCADE;
+DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
