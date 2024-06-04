@@ -20,7 +20,7 @@ type friendsListResponse = Response<{ error: string } | { friends: string[] }>;
  * @param res
  * @returns
  */
-export const sendFriendResponseController = async (
+export const friendListController = async (
   req: friendsListRequest,
   res: friendsListResponse,
 ) => {
