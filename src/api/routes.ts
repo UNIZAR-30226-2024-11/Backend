@@ -10,6 +10,7 @@ import { userDataController } from "../auth/userdata";
 import { updateCoinsController } from "../auth/updatecoins";
 import { searchPersonController } from "../auth/searchperson";
 import { sendFriendRequestController } from "../auth/sendfriendrequest";
+import { sendFriendResponseController } from "../auth/sendfriendresponse";
 
 export const router = Router();
 
@@ -24,5 +25,7 @@ router.route("/userdata/:id/updatecoins").get(updateCoinsController);
 router.route("/friends/search/:email").get(searchPersonController);
 
 router.route("/friends/request").post(sendFriendRequestController);
+
+router.route("/friends/petition_list/:id").get(sendFriendResponseController);
 
 // TODO: Añadir rutas usuario
