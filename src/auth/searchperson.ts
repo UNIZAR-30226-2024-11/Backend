@@ -25,7 +25,7 @@ export const searchPersonController = async (
   res: searchPersonResponse,
 ) => {
   const userEmail = req.params.email;
-  if ( userEmail !== 'string') {
+  if (typeof userEmail !== 'string') {
     res.status(400).json({ error: "Email de usuario no válido" });
     return;
   }
