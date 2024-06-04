@@ -31,18 +31,18 @@ export const searchPersonController = async (
   }
   try {
     const user = await findUsersByUsernameOrEmail('', userEmail);
-    if (!user) {
+    if (!user[0]) {
       res.status(401).json({ error: `Usuario con email ${userEmail} no encontrado` });
       return;
     }
 
     // Asegura que sea string
-    if (typeof user.id !== 'number') {
+    if (typeof user[0].id !== 'number') {
       res.status(500).json({ error: "parametros ID del usuario no válidos" });
       return;
     }
 
-    res.status(200).json({ id: user.id });
+    res.status(200).json({ id: user[0].id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
