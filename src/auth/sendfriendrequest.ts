@@ -14,7 +14,7 @@ type SendFriendRequestRequest = Request<{}, {}, { userId: number; friendId: numb
  */
 type SendFriendRequestResponse = Response<{ error: string } | { token: string; id: number }>;
 
-export const SendFriendRequestController = async (
+export const sendFriendRequestController = async (
   req: SendFriendRequestRequest,
   res: SendFriendRequestResponse,
 ) => {
