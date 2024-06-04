@@ -202,7 +202,9 @@ export const updateUserAvatar = async (id: number, avatar: string) => {
  */
  export const sendFriendRequest = async (id: number, friendId: number) => {
   const user = await findUserDataById(id);
-  await db.query<User>(ADD_USER_FRIEND_REQUEST_QUERY, [user.username, friendId]);
+  if (user) {
+    await db.query<User>(ADD_USER_FRIEND_REQUEST_QUERY, [user.username, friendId]);
+  }
  }
 
 /**
