@@ -68,7 +68,11 @@ export interface User {
   avatar?: string;
   level?: number;
   games_won?: number;
+  games_played?: number;
   coins?: number;
+  friends?: number[];
+  friend_requests?: number[];
+  friend_requests_sent?: number[];
 }
 
 /**
