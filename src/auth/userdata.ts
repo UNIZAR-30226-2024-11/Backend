@@ -12,7 +12,7 @@ interface UserDataRequest extends Request {
   };
 }
 
-type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string; avatar: string; level: number; games_won: number; coins: number }>;
+type UserDataResponse = Response<{ error: string } | { id: number; username: string; email: string; level: number; games_won: number; coins: number }>;
 
 /**
  *
@@ -37,7 +37,7 @@ export const userDataController = async (
     }
 
     // Asegura que sean strings
-    if (typeof user.email !== 'string' || typeof user.username !== 'string' || typeof user.avatar !== 'string') {
+    if (typeof user.email !== 'string' || typeof user.username !== 'string') {
       res.status(500).json({ error: "parametros string del usuario no válidos" });
       return;
     }
@@ -48,7 +48,7 @@ export const userDataController = async (
       return;
     }
 
-    res.status(200).json({ id: user.id, username: user.username, email: user.email, avatar: user.avatar, level: user.level, games_won: user.games_won, coins: user.coins});
+    res.status(200).json({ id: user.id, username: user.username, email: user.email, level: user.level, games_won: user.games_won, coins: user.coins});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });
