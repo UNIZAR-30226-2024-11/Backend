@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS users (
   games_played INT DEFAULT 0,
   coins INT DEFAULT 0,
   friends INT[] DEFAULT '{}',
-  friend_requests INT[] DEFAULT '{}'
+  friend_requests INT[] DEFAULT '{}',
   friend_requests_sent INT[] DEFAULT '{}'
 );
 
