@@ -37,7 +37,7 @@ export const sendFriendResponseController = async (
     }
 
     // Asegura que sean strings
-    if (!Array.isArray(user.friends_requests) || user.friends_requests.some((request) => typeof request !== 'string'{
+    if (!Array.isArray(user.friends_requests)){
         res.status(500).json({ error: "parametros string del usuario no válidos" });
         return;
     }
