@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { updateUserCoins} from "../model";
+import { updateUserCoins, checkUserCoins } from "../model";
 interface UpdateCoinsRequest extends Request {
     params: {
         id: string; // Los parámetros de la URL son cadenas por defecto
@@ -8,7 +8,7 @@ interface UpdateCoinsRequest extends Request {
         coins: number; // El número de monedas a actualizar
     };
 }
-type UpdateCoinsResponse = Response<{ error: string } | any>;
+type UpdateCoinsResponse = Response<{ error: string } | {coinsleft: number}>;
 
 export const updateCoinsController = async (
   req: UpdateCoinsRequest,
@@ -23,13 +23,17 @@ export const updateCoinsController = async (
   }
 
   try {
-    const updatedUser = await updateUserCoins(userId, coins);
-    if (!updatedUser) {
-      res.status(404).json({ error: "Usuario no encontrado" });
+    const hasEnoughCoins = await checkUserCoins(userId, coins);
+    if (!hasEnoughCoins) {
+      res.status(400).json({ error: "El usuario no tiene suficientes monedas" });
       return;
     }
+    else {
+      const coinsleftquery = await updateUserCoins(userId, coins);
+      res.status(200).json({coinsleft: coinsleftquery}); // Devuelve el numero de monedas actualizado
+    }
 
-    res.status(200).json(updatedUser); // Devuelve el objeto de usuario actualizado
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error interno" });

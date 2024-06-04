@@ -106,9 +106,19 @@ export const findUserDataById = async (id: number) => {
 };
 
 export const updateUserCoins = async (id: number, coins: number) => {
-  const res = await db.query(UPDATE_USER_COINS_QUERY, [coins, id]);
+  const res = await db.query<User>(UPDATE_USER_COINS_QUERY, [coins, id]);
   if (res.rows.length > 0) {
-    return res.rows[0]; // Devuelve el objeto actualizado
+    return res.rows[0].coins; // Devuelve el objeto actualizado
   }
   return null; // Devuelve null si no se encuentra el usuario
 };
+
+export const checkUserCoins = async (id: number, coins: number) => {
+  const res = await db.query<User>(FIND_USER_DATA_BY_ID_QUERY, [id]);
+  if (res.rows.length > 0) {
+    if (res.rows[0].coins >= coins) {
+      return true;
+    }
+  }
+  return false;
+}
