@@ -33,8 +33,11 @@ CREATE TABLE IF NOT EXISTS users (
   avatar TEXT DEFAULT 'default.png',
   level INT DEFAULT 1,
   games_won INT DEFAULT 0,
+  games_played INT DEFAULT 0,
   coins INT DEFAULT 0,
-  friends INT[] DEFAULT '{}'
+  friends INT[] DEFAULT '{}',
+  friend_requests INT[] DEFAULT '{}'
+  friend_requests_sent INT[] DEFAULT '{}'
 );
 
 CREATE TABLE IF NOT EXISTS player (
