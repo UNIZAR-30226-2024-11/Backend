@@ -34,6 +34,29 @@ const UPDATE_USER_COINS_QUERY = `
   WHERE id = $2
 `;
 
+const UPDATE_USER_LEVEL_QUERY = `
+  UPDATE users
+  SET level = $1
+  WHERE id = $2
+`;
+
+const UPDATE_USER_GAMES_WON_QUERY = `
+  UPDATE users
+  SET games_won = $1
+  WHERE id = $2
+`;
+
+const UPDATE_USER_AVATAR_QUERY = `
+  UPDATE users
+  SET avatar = $1
+  WHERE id = $2
+`;
+
+const ADD_USER_FRIEND_QUERY = `
+  UPDATE users
+  SET friends = array_append(friends, $1)
+  WHERE id = $2
+`;
 
 
 /** User representa un usuario registrado dentro del sistema. */
@@ -93,10 +116,10 @@ export const findUsersByUsernameOrEmail = async (
 };
 
 /**
- * Devuelve las monedas y las partidas ganadas de un jugador
+ * Devuelve los datos de un usuario por su id.
  *
  * @param id Id de usuario
- * @returns Monedas y partidas ganadas
+ * @returns Datos del usuario o null
  */
 export const findUserDataById = async (id: number) => {
   const res = await db.query<User>(FIND_USER_DATA_BY_ID_QUERY, [id]);
@@ -129,3 +152,44 @@ export const checkUserCoins = async (id: number, coins: number) => {
   const user = await findUserDataById(id);
   return (user?.coins ?? 0) >= coins;
 };
+
+/**
+ * Actualiza el nivel de un usuario
+ *
+ * @param id Id de usuario
+ * @param level Nivel a actualizar
+ */
+export const updateUserLevel = async (id: number, level: number) => {
+  await db.query<User>(UPDATE_USER_LEVEL_QUERY, [level, id]);
+}
+
+/**
+ * Actualiza las partidas ganadas de un usuario
+ *
+ * @param id Id de usuario
+ * @param gamesWon Partidas ganadas a actualizar
+ */
+export const updateUserGamesWon = async (id: number, gamesWon: number) => {
+  await db.query<User>(UPDATE_USER_GAMES_WON_QUERY, [gamesWon, id]);
+}
+
+/**
+ * Actualiza el avatar de un usuario
+ *
+ * @param id Id de usuario
+ * @param avatar Avatar a actualizar
+ */
+export const updateUserAvatar = async (id: number, avatar: string) => {
+  await db.query<User>(UPDATE_USER_AVATAR_QUERY, [avatar, id]);
+}
+
+/**
+ * Añade un amigo a un usuario
+ *
+ * @param id Id de usuario
+ * @param friendId Id de amigo
+ */
+export const addUserFriend = async (id: number, friendId: number) => {
+  await db.query<User>(ADD_USER_FRIEND_QUERY, [friendId, id]);
+}
+
